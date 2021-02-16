@@ -1,4 +1,4 @@
-# FEWA - File Explorer Web App - Front End
+# FEWA - File Explorer Web App Front End
 
 ## This repository contains the front-end code for the File Explorer Web App, which allows you to explore files through a web-based application.
 
@@ -41,8 +41,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ___
 ### Additional Resources and Trouble Shooting
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).\
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 #### Code Splitting
