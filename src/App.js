@@ -1,20 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from './components/general/Button.js';
 
 function App() {
+	return (
+		<div class="topBar">
+			<SearchButton/>
+			<DirectoryButton/>
+			<MenuButton/>
+		</div>
+	);
+}
+
+export default App;
+
+function SearchButton() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button />
-        
-      </header>
+    <div className="SearchButton">
+      <h1>Search</h1>
     </div>
   );
 }
 
-export default App;
+function DirectoryButton() {
+  return (
+    <div className="DirectoryButton">
+      <h1>Directory</h1>
+    </div>
+  );
+}
+
+function MenuButton() {
+  return (
+    <div className="MenuButton">
+      <h1>Menu</h1>
+    </div>
+  );
+}
