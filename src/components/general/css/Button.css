@@ -9,3 +9,33 @@
 .Button:hover {
 	background-color: green;
 }
+
+.SearchButton {
+	text-align: center;
+	background-color: yellow;
+	height: 80px;
+	width: 200px;
+}
+.SearchButton:hover {
+	background-color: green;
+}
+
+.DirectoryButton {
+	text-align: center;
+	background-color: yellow;
+	height: 80px;
+	width: 200px;
+}
+.DirectoryButton:hover {
+	background-color: green;
+}
+
+.MenuButton {
+	text-align: center;
+	background-color: yellow;
+	height: 80px;
+	width: 200px;
+}
+.MenuButton:hover {
+	background-color: green;
+}

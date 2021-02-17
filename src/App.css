@@ -41,37 +41,5 @@
 	display: flex;
 	background-color: #787878;
     justify-content: space-between;
-}
-
-.SearchButton {
-	display: inline-block;
-	text-align: center;
-	background-color: yellow;
-	height: 80px;
-	width: 200px;
-}
-.SearchButton:hover {
-	background-color: green;
-}
-
-.DirectoryButton {
-	display: inline-block;
-	text-align: center;
-	background-color: yellow;
-	height: 80px;
-	width: 200px;
-}
-.DirectoryButton:hover {
-	background-color: green;
-}
-
-.MenuButton {
-	display: inline-block;
-	text-align: center;
-	background-color: yellow;
-	height: 80px;
-	width: 200px;
-}
-.MenuButton:hover {
-	background-color: green;
+    width: 100%;
 }
