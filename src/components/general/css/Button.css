@@ -16,6 +16,7 @@
 	height: 80px;
 	width: 200px;
 }
+
 .SearchButton:hover {
 	background-color: green;
 }
@@ -26,6 +27,7 @@
 	height: 80px;
 	width: 200px;
 }
+
 .DirectoryButton:hover {
 	background-color: green;
 }
@@ -36,6 +38,7 @@
 	height: 80px;
 	width: 200px;
 }
+
 .MenuButton:hover {
 	background-color: green;
 }
