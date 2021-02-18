@@ -6,6 +6,10 @@
 ___
 In the project directory, you can run:
 
+#### `npm install`
+
+You should run this when running the app for the first time, as it installs all the various packages required for the web app.
+
 #### `yarn start` or `npm run start`
 
 This is the primary script you'll need to run to access the webpage.\
