@@ -6,7 +6,7 @@ import Form from './Form.js';
 
 function TopBar() {
 	return (
-		<div>
+		<div id = 'topBar'>
 			<Form />
 			<Buttons.DirectoryButton />
 			<Buttons.MenuButton />

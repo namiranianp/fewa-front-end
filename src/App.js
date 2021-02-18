@@ -4,7 +4,10 @@ import TopBar from './components/general/TopBar.js';
 
 function App() {
 	return (
-		<TopBar />
+		<div>
+			<TopBar />
+			<p id='testText'></p>
+		</div>
 	);
 }
 
