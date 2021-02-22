@@ -6,7 +6,7 @@ function App() {
 	return (
 		<div>
 			<TopBar />
-			<p id='testText'>Enter a Github username to test the fetch feature.</p>
+			<p id='testText'>Submit a Github username to test the fetch feature.</p>
 		</div>
 	);
 }
