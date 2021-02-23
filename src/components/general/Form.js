@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Form.css';
+//import '/src/css/Form.css';
 
 class Form extends React.Component {
 	constructor(props) {

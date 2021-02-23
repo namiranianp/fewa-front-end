@@ -1,5 +1,4 @@
 import React from 'react';
-import './css/Form.css';
 
 class DisplayFiles extends React.Component {
 	constructor(props) {
