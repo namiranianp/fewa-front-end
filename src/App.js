@@ -1,9 +1,14 @@
 import React from 'react';
-import './App.css';
+import './css/App.css';
 import TopBar from './components/general/TopBar.js';
 
-function App() {
-	return (
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
 		<div>
 			<TopBar />
 			<p id='testText'>Submit a Github username to test the fetch feature.</p>
@@ -11,7 +16,8 @@ function App() {
 			<p id="error">Input longer than 5 characters</p>
 		</div>
 
-	);
+		);
+	}
 }
 
 export default App;
