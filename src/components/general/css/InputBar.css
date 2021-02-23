@@ -1,0 +1,7 @@
+.InputBar{
+	float: center;
+	text-align: center;
+	background-color: yellow;
+	height: 80px;
+	width: 200px;
+}
