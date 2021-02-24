@@ -9,18 +9,10 @@ class DisplayFiles extends React.Component {
 
 	render() {
 		
-		fetch('http://localhost:8080/test/test?msg=yourMessage')
-			.then(response => document.getElementById("testText").innerHTML = response);
-			//.then(data => JSON.stringify(data))
-			//.then(string => document.getElementById("testText").innerHTML = string);
-			/*
-			.then(data => data.map(user => {
-				
-	            return (
-	              <div></div>
-	            );
-
-			}));*/
+		fetch('http://localhost:8080/test/test?msg=text.txt')
+			.then(response => response.text().then(function(text) {
+      		document.getElementById("testText").innerHTML = text;
+			}));
 		
 		return (
 			<div></div>
