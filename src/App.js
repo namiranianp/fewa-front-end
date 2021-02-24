@@ -1,5 +1,5 @@
 import React from 'react';
-//import '/src/css/App.css';
+import './css/App.css';
 import TopBar from './components/general/TopBar.js';
 import DisplayFiles from './components/general/DisplayFiles.js';
 
