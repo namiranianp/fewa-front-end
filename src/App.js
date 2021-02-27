@@ -13,9 +13,6 @@ class App extends React.Component {
 		<div>
 			<TopBar />
 			<DisplayFiles />
-			<p id='testText'>Submit a Github username to test the fetch feature.</p>
-			<input type="text" id="input"></input>
-			<p id="error">Input longer than 5 characters</p>
 		</div>
 
 		);
