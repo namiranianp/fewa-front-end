@@ -1,15 +1,16 @@
 import React from 'react';
+import LoadingSpinner from './LoadingSpinner.js';
 
 class DisplayFiles extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			error: null,
 			isLoaded: false,
 			files: []
 		};
-		
+
 	}
 
 	componentDidMount() {
@@ -32,28 +33,30 @@ class DisplayFiles extends React.Component {
 	}
 
 	render() {
-		
+
 		const {
 			error,
 			isLoaded,
 			files
 		} = this.state;
-		
+
 		if (error) {
-			
+
 			return <div>Error Occurred: {error.message}</div>;
-			
+
 		} else if (!isLoaded) {
-			
-			return <div>Please Wait...</div>;
-			
+
+			return (
+				<LoadingSpinner/>
+			);
+
 		} else {
 			return (
 				<ul>
 					<ul>
 						{files.map(item => (
 							<li key={item.name}>
-								Name: {item.name}, File or Directory: {item.type}
+								Name: {item.name}, Extension: {item.extension}, File or Directory: {item.type}
 							</li>
 						))}
 					</ul>

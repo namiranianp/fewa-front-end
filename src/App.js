@@ -3,17 +3,17 @@ import './css/App.css';
 import TopBar from './components/general/TopBar.js';
 import DisplayFiles from './components/general/DisplayFiles.js';
 
-class App extends React.Component {
+export class App extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
 		return (
-		<div>
-			<TopBar />
-			<DisplayFiles />
-		</div>
+			<div>
+				<TopBar />
+				<div id = "loadingSpinner"><DisplayFiles /></div>
+			</div>
 
 		);
 	}
