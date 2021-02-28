@@ -1,5 +1,6 @@
 import React from 'react';
 import LoadingSpinner from './LoadingSpinner.js';
+import FileIcon from './FileIcon.js';
 
 class DisplayFiles extends React.Component {
 	constructor(props) {
@@ -47,20 +48,16 @@ class DisplayFiles extends React.Component {
 		} else if (!isLoaded) {
 
 			return (
-				<LoadingSpinner/>
+				<LoadingSpinner />
 			);
 
 		} else {
 			return (
-				<ul>
-					<ul>
-						{files.map(item => (
-							<li key={item.name}>
-								Name: {item.name}, Extension: {item.extension}, File or Directory: {item.type}
-							</li>
-						))}
-					</ul>
-				</ul>
+				files.map(item => (
+					<div key={item.name}>
+						<FileIcon fileName = {item.name} extension={item.extension} type={item.type}/>
+					</div>
+				))
 			);
 		}
 	}

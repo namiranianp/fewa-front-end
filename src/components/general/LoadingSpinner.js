@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from 'react-loader-spinner';
+import Spinner from 'react-bootstrap/Spinner';
 import '../../css/LoadingSpinner.css';
 
 class LoadingSpinner extends React.Component {
@@ -9,12 +9,9 @@ class LoadingSpinner extends React.Component {
 	render() {
 		return (
 			<div id="loadingSpinner">
-				<Spinner
-					type="TailSpin"
-					color="#00BFFF"
-					height={100}
-					width={100}
-				/>
+				<Spinner animation="border" role="status">
+					<span className="sr-only">Loading...</span>
+				</Spinner>
 			</div>
 		);
 	}

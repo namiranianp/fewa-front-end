@@ -1,7 +1,7 @@
 import React from 'react';
-import './css/App.css';
-import TopBar from './components/general/TopBar.js';
-import DisplayFiles from './components/general/DisplayFiles.js';
+import '../../css/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DisplayFiles from './DisplayFiles.js';
 
 export class App extends React.Component {
 	constructor(props) {
