@@ -11,10 +11,8 @@ export class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<TopBar />
-				<div id = "loadingSpinner"><DisplayFiles /></div>
+				<DisplayFiles />
 			</div>
-
 		);
 	}
 }
