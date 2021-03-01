@@ -1,6 +1,9 @@
 import React from 'react';
 import LoadingSpinner from './LoadingSpinner.js';
 import FileIcon from './FileIcon.js';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class DisplayFiles extends React.Component {
 	constructor(props) {
@@ -53,11 +56,15 @@ class DisplayFiles extends React.Component {
 
 		} else {
 			return (
-				files.map(item => (
-					<div key={item.name}>
-						<FileIcon fileName = {item.name} extension={item.extension} type={item.type}/>
-					</div>
-				))
+				<Container>
+					<Row>
+							{files.map(item => (
+								<Col md="auto" key={item.fullName}>
+									<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} />
+								</Col>
+							))}
+					</Row>
+				</Container>
 			);
 		}
 	}

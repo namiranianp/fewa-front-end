@@ -1,5 +1,5 @@
 import React from 'react';
-import Figure from 'react-bootstrap/Figure';
+import Card from 'react-bootstrap/Card';
 import '../../css/FileIcon.css';
 import TXTIcon from '../../Icons/TXTIcon.svg';
 import FolderIcon from '../../Icons/FolderIcon.svg';
@@ -34,18 +34,12 @@ class FileIcon extends React.Component {
 		}
 
 		return (
-			<div id="icon">
-				<Figure>
-					<Figure.Image
-						width={160}
-						height={160}
-						src={image}
-					/>
-					<Figure.Caption>
-						{this.props.fileName}.{this.props.extension}
-  					</Figure.Caption>
-				</Figure>
-			</div>
+			<Card border = "light" style={{ width: '8rem' }}>
+				<Card.Img variant="top" src={image} height="20%"/>
+				<Card.Body>
+					<Card.Title>{this.props.fullFileName}</Card.Title>
+				</Card.Body>
+			</Card>
 		);
 	}
 }
