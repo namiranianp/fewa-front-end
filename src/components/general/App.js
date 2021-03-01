@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from './NavBar.js';
 import DisplayFiles from './DisplayFiles.js';
 
 export class App extends React.Component {
@@ -11,6 +12,7 @@ export class App extends React.Component {
 	render() {
 		return (
 			<div>
+				<NavBar />
 				<DisplayFiles />
 			</div>
 		);

@@ -58,11 +58,11 @@ class DisplayFiles extends React.Component {
 			return (
 				<Container>
 					<Row>
-							{files.map(item => (
-								<Col md="auto" key={item.fullName}>
-									<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} />
-								</Col>
-							))}
+						{files.map(item => (
+							<Col md="auto" key={item.fullName}>
+								<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} />
+							</Col>
+						))}
 					</Row>
 				</Container>
 			);
