@@ -1,10 +1,17 @@
 import React from 'react';
+import '../../css/DisplayFiles.css';
+
 import LoadingSpinner from './LoadingSpinner.js';
 import FileIcon from './FileIcon.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+/**
+ * The main way to fetch files from the backend and display them.
+ * @class
+ * @name DisplayFiles
+ */
 class DisplayFiles extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,6 +24,12 @@ class DisplayFiles extends React.Component {
 
 	}
 
+	/**
+	* Is automatically called when this component successfully mounts.
+	* In this case, it is used to fetch the file information from the backend.
+	* @function
+	* @name componentDidMount
+	*/
 	componentDidMount() {
 		fetch("http://localhost:8080/jsontest/jsontest")
 			.then(response => response.json())
@@ -36,6 +49,11 @@ class DisplayFiles extends React.Component {
 			)
 	}
 
+	/**
+	* Update the DOM with the rendered component.
+	* @function
+	* @name render
+	*/
 	render() {
 
 		const {
@@ -55,8 +73,10 @@ class DisplayFiles extends React.Component {
 			);
 
 		} else {
+			
 			return (
 				<Container>
+				<br />
 					<Row>
 						{files.map(item => (
 							<Col md="auto" key={item.fullName}>
