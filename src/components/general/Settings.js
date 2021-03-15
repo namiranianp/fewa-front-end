@@ -25,7 +25,6 @@ class Settings extends React.Component {
 			
 				<h1>Settings</h1>
 			
-
 			</div>
 		);
 	}

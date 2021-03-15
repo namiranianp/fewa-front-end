@@ -27,14 +27,3 @@
 .App-link {
 	color: #61dafb;
 }
-
-.topBar {
-	display: flex;
-	background-color: #787878;
-	justify-content: space-between;
-	width: 100%;
-}
-
-.InputBar{
-	display:flex;
-}

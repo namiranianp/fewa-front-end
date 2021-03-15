@@ -65,7 +65,7 @@ class FileIcon extends React.Component {
 	render() {
 
 		return (
-			<Card id="icon" border="light">
+			<Card onClick={()=>{ alert('alert')}} id="icon" border="light">
 				<Card.Img variant="top" height="20%" src={this.state.image} />
 				<Card.Body>
 					<Card.Title>{this.props.fullFileName}</Card.Title>
