@@ -74,7 +74,7 @@ class FileIcon extends React.Component {
 							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
 						</Card.Header>
 						<Card.Body>
-							<Card.Img variant="bottom" src="http://localhost:8080/txtContent/txtContent" />
+							<iframe title="PDF File Viewer" src="http://localhost:8080/txtContent/txtContent"></iframe>
 						</Card.Body>
 					</Card>
 			});
@@ -86,7 +86,7 @@ class FileIcon extends React.Component {
 							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
 						</Card.Header>
 						<Card.Body>
-							<Card.Img variant="bottom" src="http://localhost:8080/mp4Content/mp4Content" />
+							<iframe title="PDF File Viewer" src="http://localhost:8080/mp4Content/mp4Content"></iframe>
 						</Card.Body>
 					</Card>
 			});
@@ -98,7 +98,7 @@ class FileIcon extends React.Component {
 							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
 						</Card.Header>
 						<Card.Body>
-							<Card.Img variant="bottom" src="http://localhost:8080/pdfContent/pdfContent" />
+							<iframe title="PDF File Viewer" src="http://localhost:8080/pdfContent/pdfContent"></iframe>
 						</Card.Body>
 					</Card>
 			});
