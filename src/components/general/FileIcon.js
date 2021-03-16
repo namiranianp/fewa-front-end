@@ -1,8 +1,9 @@
 import React from 'react';
 import '../../css/FileIcon.css';
 
+import ContentDisplayBox from './ContentDisplayBox.js';
+
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 
 import TXTIcon from '../../Icons/TXTIcon.svg';
 import FolderIcon from '../../Icons/FolderIcon.svg';
@@ -22,8 +23,18 @@ class FileIcon extends React.Component {
 		super(props);
 		this.state = {
 			iconImage: UnknownFileIcon,
-			fileContentsDisplay: null
+			fileContentsDisplay: null,
 		};
+	}
+
+	/**
+	* Is automatically called when this component successfully mounts.
+	* In this case, it is used to load the file icons only once.
+	* @function
+	* @name componentDidMount
+	*/
+	componentDidMount() {
+		this.assignIcon();
 	}
 
 	/**
@@ -50,16 +61,6 @@ class FileIcon extends React.Component {
 	}
 
 	/**
-	* Is automatically called when this component successfully mounts.
-	* In this case, it is used to load the file icons only once.
-	* @function
-	* @name componentDidMount
-	*/
-	componentDidMount() {
-		this.assignIcon();
-	}
-
-	/**
 	* Attempts to display the file content based on the extension.
 	* @function
 	* @name displayContent
@@ -68,63 +69,38 @@ class FileIcon extends React.Component {
 
 		if ("txt".localeCompare(this.props.extension) === 0) {
 			this.setState({
-				fileContentsDisplay:
-					<Card id="overlay" border="dark" className="text-right">
-						<Card.Header>
-							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
-						</Card.Header>
-						<Card.Body>
-							<iframe title="PDF File Viewer" src="http://localhost:8080/txtContent/txtContent"></iframe>
-						</Card.Body>
-					</Card>
+				fileContentsDisplay: <ContentDisplayBox
+					source="http://localhost:8080/txtContent/txtContent"
+					disable={() => this.disableContentDiplay()}
+				/>
 			});
 		} else if ("mp4".localeCompare(this.props.extension) === 0) {
 			this.setState({
-				fileContentsDisplay:
-					<Card id="overlay" border="dark" className="text-right">
-						<Card.Header>
-							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
-						</Card.Header>
-						<Card.Body>
-							<iframe title="PDF File Viewer" src="http://localhost:8080/mp4Content/mp4Content"></iframe>
-						</Card.Body>
-					</Card>
+				fileContentsDisplay: <ContentDisplayBox
+					source="http://localhost:8080/mp4Content/mp4Content"
+					disable={() => this.disableContentDiplay()}
+				/>
 			});
 		} else if ("pdf".localeCompare(this.props.extension) === 0) {
 			this.setState({
-				fileContentsDisplay:
-					<Card id="overlay" border="dark" className="text-right">
-						<Card.Header>
-							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
-						</Card.Header>
-						<Card.Body>
-							<iframe title="PDF File Viewer" src="http://localhost:8080/pdfContent/pdfContent"></iframe>
-						</Card.Body>
-					</Card>
+				fileContentsDisplay: <ContentDisplayBox
+					source="http://localhost:8080/pdfContent/pdfContent"
+					disable={() => this.disableContentDiplay()}
+				/>
 			});
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({
-				fileContentsDisplay:
-					<Card id="overlay" border="dark" className="text-right">
-						<Card.Header>
-							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
-						</Card.Header>
-						<Card.Body>
-							<Card.Img variant="bottom" src="http://localhost:8080/pngContent/pngContent" />
-						</Card.Body>
-					</Card>
+				fileContentsDisplay: <ContentDisplayBox
+					source="http://localhost:8080/pngContent/pngContent"
+					disable={() => this.disableContentDiplay()}
+				/>
 			});
 		} else if ("jpeg".localeCompare(this.props.extension) === 0) {
 			this.setState({
-				fileContentsDisplay:
-					<Card id="overlay" border="dark" className="text-right">
-						<Card.Header>
-							<Button onClick={() => { this.disableContentDiplay() }} variant="danger">X</Button>
-						</Card.Header>
-						<Card.Body>
-							<Card.Img variant="bottom" src="http://localhost:8080/jpegContent/jpegContent" />
-						</Card.Body>
-					</Card>
+				fileContentsDisplay: <ContentDisplayBox
+					source="http://localhost:8080/jpegContent/jpegContent"
+					disable={() => this.disableContentDiplay()}
+				/>
 			});
 		}
 	}

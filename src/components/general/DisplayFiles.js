@@ -3,6 +3,7 @@ import '../../css/DisplayFiles.css';
 
 import LoadingSpinner from './LoadingSpinner.js';
 import FileIcon from './FileIcon.js';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
