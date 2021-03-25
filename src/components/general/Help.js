@@ -19,11 +19,14 @@ class Help extends React.Component {
 	* @name render
 	*/
 	render() {
-
+		const mystyle = {
+			color: "red",
+	        padding: "10px"
+   		 };
 		return (
 			<div id="half">
 
-				<h1>Help</h1>
+				<h1 style={mystyle}>Postgresql Installation <a href= "https://www.postgresql.org/download/">https://www.postgresql.org/download/</a> </h1>
 
 
 			</div>

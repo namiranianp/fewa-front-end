@@ -1,34 +1,29 @@
-import React from 'react';
-import '../../css/Settings.css';
+import React, {useState} from "react";
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./Globalstyles";
+import  {useDarkMode} from "./useDarkMode"
+import { lightTheme, darkTheme } from "./Themes";
+import Toggle from "./Toggler";
 
-/**
- * Displays the Settings screen information
- * @class
- * @name Settings
- */
-class Settings extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-		};
-	}
+const Settings = () => {
+   const [theme, themeToggler, mountedComponent] = useDarkMode();
+//const [isDarkMode, setIsDarkMode] = useState(() => false);
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
-	/**
-	* Update the DOM with the rendered component.
-	* @function
-	* @name render
-	*/
-	render() {
+if(!mountedComponent) return (<div/>);
+  return (
+    <ThemeProvider theme={themeMode}>
 
-		return (
-			<div id="half">
-			
-				<h1>Settings</h1>
-			
-
-			</div>
-		);
-	}
-}
+	<>
+      <GlobalStyles/>
+        <div className="Settings">
+          <Toggle theme={theme} toggleTheme={themeToggler} />
+	
+     	</div> 
+      </>
+    </ThemeProvider>
+    
+  );
+};
 
 export default Settings;
