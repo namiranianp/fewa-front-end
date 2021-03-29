@@ -31,7 +31,9 @@ class ContentDisplayBox extends React.Component {
 					<Button onClick={() => this.props.disable()} variant="danger">X</Button>
 				</Card.Header>
 				<Card.Body>
-					<iframe title="File Content Viewer" src={this.props.source}></iframe>
+					<iframe height={window.innerHeight - (window.innerHeight * 0.3)}
+						width={window.innerWidth - (window.innerWidth * 0.5)}
+						title="File Content Viewer" src={this.props.source}></iframe>
 				</Card.Body>
 			</Card>
 		);
