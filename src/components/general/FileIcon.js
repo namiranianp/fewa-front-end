@@ -2,6 +2,7 @@ import React from 'react';
 import '../../css/FileIcon.css';
 
 import ContentDisplayBox from './ContentDisplayBox.js';
+import DisplayTags from './DisplayTags.js';
 
 import Card from 'react-bootstrap/Card';
 
@@ -24,6 +25,7 @@ class FileIcon extends React.Component {
 		this.state = {
 			iconImage: UnknownFileIcon,
 			fileContentsDisplay: null,
+			tagDisplay: null
 		};
 	}
 
@@ -115,6 +117,60 @@ class FileIcon extends React.Component {
 	}
 
 	/**
+	* Attempts to display the tags based on the file.
+	* @function
+	* @name displayTags
+	*/
+	displayTags() {
+
+		if ("txt".localeCompare(this.props.extension) === 0) {
+			this.setState({
+				tagDisplay: <DisplayTags
+					source="http://localhost:8080/tagtest/tagtest?tag=txt-"
+					disable={() => this.disableTagDiplay()}
+				/>
+			});
+		} else if ("mp4".localeCompare(this.props.extension) === 0) {
+			this.setState({
+				tagDisplay: <DisplayTags
+					source="http://localhost:8080/tagtest/tagtest?tag=mp4-"
+					disable={() => this.disableTagDiplay()}
+				/>
+			});
+		} else if ("pdf".localeCompare(this.props.extension) === 0) {
+			this.setState({
+				tagDisplay: <DisplayTags
+					source="http://localhost:8080/tagtest/tagtest?tag=pdf-"
+					disable={() => this.disableTagDiplay()}
+				/>
+			});
+		} else if ("png".localeCompare(this.props.extension) === 0) {
+			this.setState({
+				tagDisplay: <DisplayTags
+					source="http://localhost:8080/tagtest/tagtest?tag=png-"
+					disable={() => this.disableTagDiplay()}
+				/>
+			});
+		} else if ("jpeg".localeCompare(this.props.extension) === 0) {
+			this.setState({
+				tagDisplay: <DisplayTags
+					source="http://localhost:8080/tagtest/tagtest?tag=jpeg-"
+					disable={() => this.disableTagDiplay()}
+				/>
+			});
+		}
+	}
+
+	/**
+	* This is a handler for disabling the file content display box.
+	* @function
+	* @name disableContentDiplay
+	*/
+	disableTagDiplay() {
+		this.setState({ tagDisplay: null });
+	}
+
+	/**
 	* Update the DOM with the rendered component.
 	* @function
 	* @name render
@@ -123,12 +179,17 @@ class FileIcon extends React.Component {
 
 		return (
 			<Card id="icon" border="light">
-				<Card.Img onClick={() => { this.displayContent() }} variant="top" height="20%" src={this.state.iconImage} />
+
+				<Card.Img
+					onClick={() => { this.displayContent() }}
+					onMouseEnter={() => { this.displayTags() }}
+					variant="top" height="20%" src={this.state.iconImage} />
 				<Card.Body>
 					<Card.Title>{this.props.fullFileName}</Card.Title>
 				</Card.Body>
 
 				{this.state.fileContentsDisplay}
+				{this.state.tagDisplay}
 
 			</Card>
 
