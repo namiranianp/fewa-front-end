@@ -15,6 +15,7 @@ export class App extends React.Component {
 
 	/**
 	* Update the DOM with the rendered component.
+	testing if commits work??
 	* @function
 	* @name render
 	*/
