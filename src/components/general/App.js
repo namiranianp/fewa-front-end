@@ -12,7 +12,10 @@ export class App extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
+	
+	reRender() {
+		this.forceUpdate();
+	}
 	/**
 	* Update the DOM with the rendered component.
 	testing if commits work??

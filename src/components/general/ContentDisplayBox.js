@@ -19,7 +19,7 @@ class ContentDisplayBox extends React.Component {
 	}
 
 	/**
-	* Update the DOM with the rendered component.
+	* Update the DOM with the rendered component. 
 	* @function
 	* @name render
 	*/

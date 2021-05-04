@@ -22,17 +22,40 @@ class MainNavBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			pageContents: <DisplayFiles />
+			dir: null,
+			pageContents: <DisplayFiles rootDir = "http://localhost:8080/seed/?dir=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest"/>,
 		};
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.childKey = 0;
 	}
 
+	loadDir = (event) => {
+		this.setState({
+			dir : event.target.value
+		});
+		// alert("", event.target.value);
+		console.log("Comming from event, root dir =", this.state.dir);
+	}
+	
+	handleSubmit = (event) => {
+		event.preventDefault();
+		/**  const dir = this.state.dir;
+		console.log('The root dir is: ', dir);
+		this.loadDisplayFiles();
+		console.log('The state dir is: ', this.state.dir); */
+	}
+	/**
+	TODO: key value? might be a problem?
+	 */
 	/**
 	* Load the page which displays the various files fetched from the back end.
 	* @function
 	* @name loadDisplayFiles
 	*/
 	loadDisplayFiles() {
-		this.setState({ pageContents: <DisplayFiles /> });
+		++this.childKey;
+		this.setState({ pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/> });
+		//this.setState({pageContents: null});
 	}
 
 	/**
@@ -77,13 +100,16 @@ class MainNavBar extends React.Component {
 	* @name render
 	*/
 	render() {
-
 		return (
 			<div>
 				<Navbar id="stayOnTop" bg="dark" variant="dark">
 
 					<Navbar.Brand>File Explorer Web App</Navbar.Brand>
-
+					<Nav className="mr-auto" />
+					<Form inline onSubmit={this.handleSubmit}>
+						<FormControl type="text" placeholder="Enter your root directory" onChange={(event) => {this.loadDir(event);this.handleSubmit(event);}}/>
+						<Button variant="dark" onClick={() => this.loadDisplayFiles()}>Enter</Button>
+					</Form> 
 					<Nav className="mr-auto" />
 
 					<NavDropdown active title="Menu" id="collasible-nav-dropdown">
@@ -101,9 +127,7 @@ class MainNavBar extends React.Component {
 					</Form>
 
 				</Navbar>
-
-				{this.state.pageContents}
-
+				 {this.state.pageContents}
 			</div>
 		);
 	}

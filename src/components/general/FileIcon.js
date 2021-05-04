@@ -26,7 +26,9 @@ class FileIcon extends React.Component {
 			fileContentsDisplay: null,
 		};
 	}
-
+/**
+	
+ */
 	/**
 	* Is automatically called when this component successfully mounts.
 	* In this case, it is used to load the file icons only once.
@@ -52,7 +54,7 @@ class FileIcon extends React.Component {
 			this.setState({ iconImage: PDFIcon });
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({ iconImage: PNGIcon });
-		} else if ("jpeg".localeCompare(this.props.extension) === 0) {
+		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
 			this.setState({ iconImage: JPEGIcon });
 		} else if ("directory".localeCompare(this.props.type) === 0) {
 			this.setState({ iconImage: FolderIcon });
@@ -66,42 +68,45 @@ class FileIcon extends React.Component {
 	* @name displayContent
 	*/
 	displayContent() {
-
+		alert('clicky clicky');
 		if ("txt".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source="http://localhost:8080/txtContent/txtContent"
+					source={"http://localhost:8080/file/txt/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("mp4".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source="http://localhost:8080/mp4Content/mp4Content"
+					source={"http://localhost:8080/file/mp4/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("pdf".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source="http://localhost:8080/pdfContent/pdfContent"
+					source={"http://localhost:8080/file/pdf/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source="http://localhost:8080/pngContent/pngContent"
+					source={"http://localhost:8080/file/png/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
-		} else if ("jpeg".localeCompare(this.props.extension) === 0) {
+		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source="http://localhost:8080/jpegContent/jpegContent"
+					source={"http://localhost:8080/file/jpeg/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
+		}
+		else if ("directory".localeCompare(this.props.type) === 0) {
+			this.setState({image: FolderIcon});
 		}
 	}
 
