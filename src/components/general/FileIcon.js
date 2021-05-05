@@ -22,6 +22,7 @@ class FileIcon extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			dir: this.props.currentDir,
 			iconImage: UnknownFileIcon,
 			fileContentsDisplay: null,
 		};
@@ -68,39 +69,44 @@ class FileIcon extends React.Component {
 	* @name displayContent
 	*/
 	displayContent() {
-		alert('clicky clicky');
+		var temp = this.state.dir.toString();
+		console.log("before parse: ", temp)
+		// temp.replaceAll(':', 'C%A')
+	 	temp = temp.split(':').join('%3A');
+		temp = temp.split('/').join('%5C');
+		temp = temp.split('\\').join('%5C');
 		if ("txt".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/txt/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/txt/?file=" + temp + '%5C' + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("mp4".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/mp4/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/mp4/?file=" + temp + "%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("pdf".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/pdf/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/pdf/?file=" + temp + "%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/png/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/png/?file=" + temp + "%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/jpeg/?file=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%5C" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});

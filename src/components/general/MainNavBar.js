@@ -22,8 +22,8 @@ class MainNavBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			dir: null,
-			pageContents: <DisplayFiles rootDir = "http://localhost:8080/seed/?dir=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest"/>,
+			dir: 'test',
+			pageContents: <DisplayFiles rootDir = {this.dir}/>,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.childKey = 0;
@@ -107,11 +107,16 @@ class MainNavBar extends React.Component {
 					<Navbar.Brand>File Explorer Web App</Navbar.Brand>
 					<Nav className="mr-auto" />
 					<Form inline onSubmit={this.handleSubmit}>
-						<FormControl type="text" placeholder="Enter your root directory" onChange={(event) => {this.loadDir(event);this.handleSubmit(event);}}/>
+						<FormControl type="text" placeholder="Enter your root directory" value={this.state.value} onChange={(event) => {this.loadDir(event);this.handleSubmit(event);}}/>
 						<Button variant="dark" onClick={() => this.loadDisplayFiles()}>Enter</Button>
 					</Form> 
 					<Nav className="mr-auto" />
 
+					<Form inline>
+						<Button variant="dark">Search</Button>
+						<FormControl type="text" placeholder="Search" className="mr-sm-2" />
+					</Form>
+					
 					<NavDropdown active title="Menu" id="collasible-nav-dropdown">
 						<NavDropdown.Item onClick={() => this.loadDisplayFiles()}>Home</NavDropdown.Item>
 						<NavDropdown.Item onClick={() => this.loadLogIn()}>Log-In / Sign Up</NavDropdown.Item>
@@ -121,12 +126,9 @@ class MainNavBar extends React.Component {
 						<NavDropdown.Item onClick={() => this.loadSettings()}>Settings</NavDropdown.Item>
 					</NavDropdown>
 
-					<Form inline>
-						<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-						<Button variant="dark">Search</Button>
-					</Form>
 
 				</Navbar>
+				
 				 {this.state.pageContents}
 			</div>
 		);

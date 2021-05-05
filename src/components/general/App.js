@@ -13,9 +13,6 @@ export class App extends React.Component {
 		super(props);
 	}
 	
-	reRender() {
-		this.forceUpdate();
-	}
 	/**
 	* Update the DOM with the rendered component.
 	testing if commits work??

@@ -19,13 +19,14 @@ class DisplayFiles extends React.Component {
 
 		this.state = {
 			dir: this.props.rootDir,
+			curr_dir: 'test',
 			error: null,
 			isLoaded: false,
 			files: []
 		};
 
 	}
-
+	
 	/**
 	* Is automatically called when this component successfully mounts.
 	* In this case, it is used to fetch the file information from the backend. "http://localhost:8080/seed/?dir=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5Ctest-1"
@@ -33,8 +34,32 @@ class DisplayFiles extends React.Component {
 	* @name componentDidMount
 	*/
 	componentDidMount() {
+		
+		//parsedDir.replaceAll(':', 'C%A');
+		//String.prototype.replaceAll(this.state.dir, ':', 'C%A');
+		//String.prototype.replaceAll(this.state.dir, '/', '5%C');
+		//String.prototype.replaceAll(this.state.dir, '\\', '5%C');
+		if (typeof this.state.dir === 'undefined') {
+			console.log('UNDEFINED dir DETECTED')
+			return			
+		} 
+		else {
+		}
+		//	this.replaceChar()
+		var temp = this.state.dir.toString();
+		console.log("before parse: ", temp)
+		// temp.replaceAll(':', 'C%A')
+	 	temp = temp.split(':').join('%3A');
+		temp = temp.split('/').join('%5C');
+		temp = temp.split('\\').join('%5C');
+		this.setState({dir: temp}) 
+		this.setState({curr_dir: this.state.dir});
+		console.log("After parse: ", temp)
+		console.log("current dir: ", this.state.curr_dir)
+		
 		console.log("=================DisplayFiles state DIR: ", this.state.dir);
-		fetch(this.state.dir)
+		console.log("From replaceChar, current dir: ", this.state.curr_dir)
+		fetch('http://localhost:8080/seed/?dir=' + temp)
 			.then(response => response.json())
 			.then(
 				(result) => {
@@ -52,6 +77,9 @@ class DisplayFiles extends React.Component {
 					});
 				}
 			)
+			if (typeof this.state.files === 'undefined') {
+				// console.log('UNDEFINED DETECTED')
+		} 
 	}
 
 	/**
@@ -71,9 +99,8 @@ class DisplayFiles extends React.Component {
 		if (error) {
 			
 			return (
-			<div>
-				Error Occurred: {error.message}
-			</div>
+				
+				<div />
 			);
 
 		} else if (!isLoaded) {
@@ -82,7 +109,13 @@ class DisplayFiles extends React.Component {
 				<LoadingSpinner />
 			);
 
-		} else {
+		} else if (dir === '') {
+			return React.createElement(
+				'div',
+				{id: 'center', className: 'center'},
+				React.createElement('h1', null, 'Please Enter a Valid Root Directory!')
+			)
+		} else if (typeof files !== 'undefined') {
 			
 			return (
 				<div>
@@ -92,13 +125,18 @@ class DisplayFiles extends React.Component {
 					<Row>
 						{files.map(item => (
 							<Col md="auto" key={item.fullName}>
-								<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} />
+								<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} currentDir = {this.state.dir} />
 							</Col>
 						))}
 					</Row>
 				</Container>
 				</div>
 			);
+		}
+		else {
+			return (
+				<div/>
+			)
 		}
 	}
 }
