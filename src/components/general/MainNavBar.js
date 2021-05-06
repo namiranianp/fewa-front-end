@@ -23,7 +23,9 @@ class MainNavBar extends React.Component {
 		super(props);
 		this.state = {
 			dir: 'test',
-			pageContents: <DisplayFiles rootDir = {this.dir}/>,
+			current_dir: null,
+			lastDir: null,
+			pageContents: <DisplayFiles rootDir = {this.current_dir}/>,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.childKey = 0;
@@ -47,6 +49,15 @@ class MainNavBar extends React.Component {
 	/**
 	TODO: key value? might be a problem?
 	 */
+
+	handleGoBack() {
+		++this.childKey;
+		this.setState({
+			lastDir: this.state.current_dir, 
+			pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/>
+			} );
+	}
+
 	/**
 	* Load the page which displays the various files fetched from the back end.
 	* @function
@@ -54,7 +65,7 @@ class MainNavBar extends React.Component {
 	*/
 	loadDisplayFiles() {
 		++this.childKey;
-		this.setState({ pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/> });
+		this.setState({ current_dir: this.state.dir, pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/> });
 		//this.setState({pageContents: null});
 	}
 
@@ -98,7 +109,7 @@ class MainNavBar extends React.Component {
 	* Update the DOM with the rendered component.
 	* @function
 	* @name render
-	*/
+	*/ 
 	render() {
 		return (
 			<div>
@@ -107,6 +118,7 @@ class MainNavBar extends React.Component {
 					<Navbar.Brand>File Explorer Web App</Navbar.Brand>
 					<Nav className="mr-auto" />
 					<Form inline onSubmit={this.handleSubmit}>
+						<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
 						<FormControl type="text" placeholder="Enter your root directory" value={this.state.value} onChange={(event) => {this.loadDir(event);this.handleSubmit(event);}}/>
 						<Button variant="dark" onClick={() => this.loadDisplayFiles()}>Enter</Button>
 					</Form> 

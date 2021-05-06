@@ -4,7 +4,7 @@ import '../../css/FileIcon.css';
 import ContentDisplayBox from './ContentDisplayBox.js';
 
 import Card from 'react-bootstrap/Card';
-
+import DisplayFiles from './DisplayFiles.js'
 import TXTIcon from '../../Icons/TXTIcon.svg';
 import FolderIcon from '../../Icons/FolderIcon.svg';
 import MP4Icon from '../../Icons/MP4Icon.svg';
@@ -23,9 +23,12 @@ class FileIcon extends React.Component {
 		super(props);
 		this.state = {
 			dir: this.props.currentDir,
+			change_dir: null,
 			iconImage: UnknownFileIcon,
 			fileContentsDisplay: null,
+			if_dir: false
 		};
+		this.childKey = 0;
 	}
 /**
 	
@@ -69,6 +72,7 @@ class FileIcon extends React.Component {
 	* @name displayContent
 	*/
 	displayContent() {
+		++this.childKey;
 		var temp = this.state.dir.toString();
 		console.log("before parse: ", temp)
 		// temp.replaceAll(':', 'C%A')
@@ -112,7 +116,15 @@ class FileIcon extends React.Component {
 			});
 		}
 		else if ("directory".localeCompare(this.props.type) === 0) {
-			this.setState({image: FolderIcon});
+			const dir = this.props.fullFileName
+			function update(state, props) {
+				return {...state, 
+					image: FolderIcon,
+					if_dir: true,
+					change_dir: this.props.fullFileName
+				}
+			}
+			this.setState(update);
 		}
 	}
 
@@ -131,19 +143,28 @@ class FileIcon extends React.Component {
 	* @name render
 	*/
 	render() {
-
-		return (
-			<Card id="icon" border="light">
-				<Card.Img onClick={() => { this.displayContent() }} variant="top" height="20%" src={this.state.iconImage} />
-				<Card.Body>
-					<Card.Title>{this.props.fullFileName}</Card.Title>
-				</Card.Body>
-
-				{this.state.fileContentsDisplay}
-
-			</Card>
-
-		);
+		
+		if (this.state.if_dir) {
+			return (
+				<div>
+					<DisplayFiles key={this.childKey} rootDir={this.state.dir} current_Dir={this.state.change_dir} changeDir={true}/>				
+				</div>
+			)
+		} 
+		else {
+			return (
+				<Card id="icon" border="light">
+					<Card.Img onClick={() => { this.displayContent() }} variant="top" height="20%" src={this.state.iconImage} />
+					<Card.Body>
+						<Card.Title>{this.props.fullFileName}</Card.Title>
+					</Card.Body>
+	
+					{this.state.fileContentsDisplay}
+	
+				</Card>
+	
+			);			
+		}
 	}
 }
 

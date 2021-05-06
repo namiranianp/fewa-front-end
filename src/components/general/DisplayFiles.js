@@ -43,28 +43,31 @@ class DisplayFiles extends React.Component {
 			console.log('UNDEFINED dir DETECTED')
 			return			
 		} 
-		else {
-		}
+
 		//	this.replaceChar()
-		var temp = this.state.dir.toString();
+		var temp = this.state.dir;
+		if (typeof this.props.changeDir !== 'undefined') {
+			temp += '%5C' + this.props.current_Dir
+		}
+		temp = temp.toString();
 		console.log("before parse: ", temp)
 		// temp.replaceAll(':', 'C%A')
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%5C');
 		temp = temp.split('\\').join('%5C');
-		this.setState({dir: temp}) 
-		this.setState({curr_dir: this.state.dir});
-		console.log("After parse: ", temp)
-		console.log("current dir: ", this.state.curr_dir)
+		
+		this.setState({dir: temp}, function (){
+			console.log("THIS IS THE STATE DIR WHICH SHOULD HAVE BEEN CHANGED: ", this.state.dir)
+		}); 
+		this.setState({curr_dir: temp});
 		
 		console.log("=================DisplayFiles state DIR: ", this.state.dir);
-		console.log("From replaceChar, current dir: ", this.state.curr_dir)
-		fetch('http://localhost:8080/seed/?dir=' + temp)
+		
+		fetch('http://localhost:8080/path/setseed/?dir=' + temp)
 			.then(response => response.json())
 			.then(
 				(result) => {
 					this.setState({
-						dir: this.state.dir,
 						isLoaded: true,
 						files: result.files
 					});
@@ -77,10 +80,8 @@ class DisplayFiles extends React.Component {
 					});
 				}
 			)
-			if (typeof this.state.files === 'undefined') {
-				// console.log('UNDEFINED DETECTED')
-		} 
-	}
+
+		}
 
 	/**
 	* Update the DOM with the rendered component.

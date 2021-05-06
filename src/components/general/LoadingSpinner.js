@@ -21,6 +21,7 @@ class LoadingSpinner extends React.Component {
 	render() {
 		return (
 			<div id="loadingSpinner">
+				<h1>Well, enter your root directory! What are you waiting for?</h1>
 				<Spinner animation="border" role="status">
 					<span className="sr-only">Loading...</span>
 				</Spinner>
