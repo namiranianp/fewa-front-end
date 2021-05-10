@@ -31,7 +31,6 @@ class DisplayFiles extends React.Component {
 	
 	callback = (current_dir, goback) => {
 		console.log("CALL BACK HERE")
-		//console.log('This is suppose to be last dir:', this.state.dir)
 		fetch('http://localhost:8080/path/getfiles/?dir=' + current_dir)
 		.then(response => response.json())
 		.then(
@@ -60,10 +59,6 @@ class DisplayFiles extends React.Component {
 	*/
 	componentDidMount() {
 		
-		//parsedDir.replaceAll(':', 'C%A');
-		//String.prototype.replaceAll(this.state.dir, ':', 'C%A');
-		//String.prototype.replaceAll(this.state.dir, '/', '5%C');
-		//String.prototype.replaceAll(this.state.dir, '\\', '5%C');
 		if (typeof this.state.dir === 'undefined') {
 			console.log('UNDEFINED dir DETECTED')
 			return			
@@ -75,8 +70,6 @@ class DisplayFiles extends React.Component {
 			temp += '%5C' + this.props.current_Dir
 		}
 		temp = temp.toString();
-		//console.log("before parse: ", temp)
-		// temp.replaceAll(':', 'C%A')
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%5C');
 		temp = temp.split('\\').join('%5C');
@@ -87,58 +80,53 @@ class DisplayFiles extends React.Component {
 			temp = temp.join('5%C')
 		}		
 		this.setState({dir: temp});
-		//, function (){
-		//	console.log("THIS IS THE STATE DIR WHICH SHOULD HAVE BEEN CHANGED: ", this.state.dir)
-		//}); 
-		// this.setState({curr_dir: temp});
-		
-		// if (!this.state.back) {
-			if (this.props.search) {
-				console.log("???????????????????Search Query: ", this.props.query);
-				fetch('http://localhost:8080/search/tag/?tag=' + this.props.query)
-				//fetch('http://localhost:8080/search/name/?file=' + this.props.query)
+		if (this.props.search) {
+			var url = 'http://localhost:8080/search/name/?file='
+			if (this.props.byTag) {
+				url = 'http://localhost:8080/search/tag/?tag='
+			}
+			console.log("???????????????????Search Query: ", this.props.query);
+			//fetch('http://localhost:8080/search/tag/?tag=' + this.props.query)
+			fetch(url + this.props.query)
+			.then(response => response.json())
+			.then(
+			(result) => {
+				this.setState({
+					isLoaded: true,
+					files: result.files
+				});
+			},
+			(error) => {
+				this.setState({
+					dir: null,
+					isLoaded: true,
+					error
+				});
+			}
+		)
+		} else {
+			
+			console.log("=================DisplayFiles state DIR: ", this.state.dir);
+			fetch('http://localhost:8080/path/setseed/?dir=' + temp)
 				.then(response => response.json())
 				.then(
-				(result) => {
-					this.setState({
-						isLoaded: true,
-						files: result.files
-					});
-				},
-				(error) => {
-					this.setState({
-						dir: null,
-						isLoaded: true,
-						error
-					});
-				}
-			)
-			} else {
-				
-				console.log("=================DisplayFiles state DIR: ", this.state.dir);
-				fetch('http://localhost:8080/path/setseed/?dir=' + temp)
-					.then(response => response.json())
-					.then(
-						(result) => {
-							this.setState({
-								dir: temp,
-								isLoaded: true,
-								files: result.files
-							});
-						},
-						(error) => {
-							this.setState({
-								dir: null,
-								isLoaded: true,
-								error
-							});
-						}
-					)
-			}
-		//} 
-		//else {
-			this.setState({back: false})
-		//}
+					(result) => {
+						this.setState({
+							dir: temp,
+							isLoaded: true,
+							files: result.files
+						});
+					},
+					(error) => {
+						this.setState({
+							dir: null,
+							isLoaded: true,
+							error
+						});
+					}
+				)
+		}
+		this.setState({back: false})
 	}
 
 		

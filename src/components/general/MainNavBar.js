@@ -25,6 +25,7 @@ class MainNavBar extends React.Component {
 			dir: 'test',
 			current_dir: null,
 			query: '',
+			checked: false,
 			pageContents: <DisplayFiles goback = {this.if_go_back} rootDir = {this.current_dir}/>,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,8 +36,6 @@ class MainNavBar extends React.Component {
 		this.setState({
 			dir : event.target.value
 		});
-		// alert("", event.target.value);
-		//console.log("Comming from event, root dir =", this.state.dir);
 	}
 	
 	handleSearch = (event) => {
@@ -48,18 +47,18 @@ class MainNavBar extends React.Component {
 	}
 	handleSubmit = (event) => {
 		event.preventDefault();
-		/**  const dir = this.state.dir;
-		console.log('The root dir is: ', dir);
-		this.loadDisplayFiles();
-		console.log('The state dir is: ', this.state.dir); */
 	}
-	/**
-	TODO: key value? might be a problem?
-	 */
-
+	
+	handleCheck = (event) => {
+		this.setState({
+			checked: event.target.checked
+		})
+	}
+	
 	loadSearchResult() {
 		this.setState({
 			pageContents: <DisplayFiles 
+							byTag={this.state.checked}
 							query={this.state.query}
 							rootDir = {this.state.dir}
 							search={true}/>
@@ -78,7 +77,6 @@ class MainNavBar extends React.Component {
 			pageContents: <DisplayFiles key={this.childKey} 
 			rootDir = {this.state.dir}/> 
 		});
-		//this.setState({pageContents: null});
 	}
 
 	/**
@@ -119,7 +117,7 @@ class MainNavBar extends React.Component {
 
 	/**
 	* Update the DOM with the rendered component.
-	*				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
+	*
 	* @function
 	* @name render
 	*/ 
@@ -145,9 +143,10 @@ class MainNavBar extends React.Component {
 						<NavDropdown.Item onClick={() => this.loadSettings()}>Settings</NavDropdown.Item>
 					</NavDropdown>
 					
-					<Form inline >
+					<Form inline onSubmit={this.handleSubmit}>
+						<Form.Check inline label="Search By Tags" checked={this.state.checked} onChange={(event) => this.handleCheck(event)} />
 						<Button variant="dark" onClick={() => this.loadSearchResult()}>Search</Button>
-						<FormControl type="text" placeholder="Search Tags or by file names" className="mr-sm-2"
+						<FormControl type="text" placeholder="Search" className="mr-sm-2"
 							value={this.state.value} onChange={(event) => {this.handleSearch(event);this.handleSubmit(event);}} />
 					</Form>	
 				

@@ -79,8 +79,6 @@ class FileIcon extends React.Component {
 	*/
 	displayContent() {
 		var temp = this.state.dir.toString();
-		// console.log("before parse: ", temp)
-		// temp.replaceAll(':', 'C%A')
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%5C');
 		temp = temp.split('\\').join('%5C');
