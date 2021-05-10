@@ -24,8 +24,8 @@ class MainNavBar extends React.Component {
 		this.state = {
 			dir: 'test',
 			current_dir: null,
-			lastDir: null,
-			pageContents: <DisplayFiles rootDir = {this.current_dir}/>,
+			query: '',
+			pageContents: <DisplayFiles goback = {this.if_go_back} rootDir = {this.current_dir}/>,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.childKey = 0;
@@ -36,9 +36,16 @@ class MainNavBar extends React.Component {
 			dir : event.target.value
 		});
 		// alert("", event.target.value);
-		console.log("Comming from event, root dir =", this.state.dir);
+		//console.log("Comming from event, root dir =", this.state.dir);
 	}
 	
+	handleSearch = (event) => {
+		this.setState({
+			query: event.target.value
+		}, function() {
+			console.log("QUERY: ", this.state.query)
+		})
+	}
 	handleSubmit = (event) => {
 		event.preventDefault();
 		/**  const dir = this.state.dir;
@@ -50,14 +57,14 @@ class MainNavBar extends React.Component {
 	TODO: key value? might be a problem?
 	 */
 
-	handleGoBack() {
-		++this.childKey;
+	loadSearchResult() {
 		this.setState({
-			lastDir: this.state.current_dir, 
-			pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/>
-			} );
+			pageContents: <DisplayFiles 
+							query={this.state.query}
+							rootDir = {this.state.dir}
+							search={true}/>
+		})
 	}
-
 	/**
 	* Load the page which displays the various files fetched from the back end.
 	* @function
@@ -65,7 +72,12 @@ class MainNavBar extends React.Component {
 	*/
 	loadDisplayFiles() {
 		++this.childKey;
-		this.setState({ current_dir: this.state.dir, pageContents: <DisplayFiles key={this.childKey} rootDir = {this.state.dir}/> });
+		this.setState({ 
+			current_dir: this.state.dir, 
+			if_go_back: false,
+			pageContents: <DisplayFiles key={this.childKey} 
+			rootDir = {this.state.dir}/> 
+		});
 		//this.setState({pageContents: null});
 	}
 
@@ -107,6 +119,7 @@ class MainNavBar extends React.Component {
 
 	/**
 	* Update the DOM with the rendered component.
+	*				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
 	* @function
 	* @name render
 	*/ 
@@ -118,17 +131,11 @@ class MainNavBar extends React.Component {
 					<Navbar.Brand>File Explorer Web App</Navbar.Brand>
 					<Nav className="mr-auto" />
 					<Form inline onSubmit={this.handleSubmit}>
-						<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
 						<FormControl type="text" placeholder="Enter your root directory" value={this.state.value} onChange={(event) => {this.loadDir(event);this.handleSubmit(event);}}/>
 						<Button variant="dark" onClick={() => this.loadDisplayFiles()}>Enter</Button>
 					</Form> 
 					<Nav className="mr-auto" />
 
-					<Form inline>
-						<Button variant="dark">Search</Button>
-						<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-					</Form>
-					
 					<NavDropdown active title="Menu" id="collasible-nav-dropdown">
 						<NavDropdown.Item onClick={() => this.loadDisplayFiles()}>Home</NavDropdown.Item>
 						<NavDropdown.Item onClick={() => this.loadLogIn()}>Log-In / Sign Up</NavDropdown.Item>
@@ -137,8 +144,13 @@ class MainNavBar extends React.Component {
 						<NavDropdown.Divider />
 						<NavDropdown.Item onClick={() => this.loadSettings()}>Settings</NavDropdown.Item>
 					</NavDropdown>
-
-
+					
+					<Form inline >
+						<Button variant="dark" onClick={() => this.loadSearchResult()}>Search</Button>
+						<FormControl type="text" placeholder="Search Tags or by file names" className="mr-sm-2"
+							value={this.state.value} onChange={(event) => {this.handleSearch(event);this.handleSubmit(event);}} />
+					</Form>	
+				
 				</Navbar>
 				
 				 {this.state.pageContents}

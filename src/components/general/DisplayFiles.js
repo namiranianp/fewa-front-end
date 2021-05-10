@@ -4,6 +4,7 @@ import '../../css/DisplayFiles.css';
 import LoadingSpinner from './LoadingSpinner.js';
 import FileIcon from './FileIcon.js';
 
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -19,12 +20,36 @@ class DisplayFiles extends React.Component {
 
 		this.state = {
 			dir: this.props.rootDir,
-			curr_dir: 'test',
+			curr_dir: '',
 			error: null,
+			back: false,
 			isLoaded: false,
 			files: []
 		};
 
+	}
+	
+	callback = (current_dir, goback) => {
+		console.log("CALL BACK HERE")
+		//console.log('This is suppose to be last dir:', this.state.dir)
+		fetch('http://localhost:8080/path/getfiles/?dir=' + current_dir)
+		.then(response => response.json())
+		.then(
+		(result) => {
+			this.setState({
+				dir: current_dir,
+				isLoaded: true,
+				files: result.files
+			});
+		},
+		(error) => {
+			this.setState({
+				dir: null,
+				isLoaded: true,
+				error
+			});
+		}
+		)
 	}
 	
 	/**
@@ -50,22 +75,30 @@ class DisplayFiles extends React.Component {
 			temp += '%5C' + this.props.current_Dir
 		}
 		temp = temp.toString();
-		console.log("before parse: ", temp)
+		//console.log("before parse: ", temp)
 		// temp.replaceAll(':', 'C%A')
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%5C');
 		temp = temp.split('\\').join('%5C');
 		
-		this.setState({dir: temp}, function (){
-			console.log("THIS IS THE STATE DIR WHICH SHOULD HAVE BEEN CHANGED: ", this.state.dir)
-		}); 
-		this.setState({curr_dir: temp});
+		if (this.props.goback) {
+			temp = temp.split('%5C')
+			temp.pop();
+			temp = temp.join('5%C')
+		}		
+		this.setState({dir: temp});
+		//, function (){
+		//	console.log("THIS IS THE STATE DIR WHICH SHOULD HAVE BEEN CHANGED: ", this.state.dir)
+		//}); 
+		// this.setState({curr_dir: temp});
 		
-		console.log("=================DisplayFiles state DIR: ", this.state.dir);
-		
-		fetch('http://localhost:8080/path/setseed/?dir=' + temp)
-			.then(response => response.json())
-			.then(
+		// if (!this.state.back) {
+			if (this.props.search) {
+				console.log("???????????????????Search Query: ", this.props.query);
+				fetch('http://localhost:8080/search/tag/?tag=' + this.props.query)
+				//fetch('http://localhost:8080/search/name/?file=' + this.props.query)
+				.then(response => response.json())
+				.then(
 				(result) => {
 					this.setState({
 						isLoaded: true,
@@ -80,8 +113,65 @@ class DisplayFiles extends React.Component {
 					});
 				}
 			)
+			} else {
+				
+				console.log("=================DisplayFiles state DIR: ", this.state.dir);
+				fetch('http://localhost:8080/path/setseed/?dir=' + temp)
+					.then(response => response.json())
+					.then(
+						(result) => {
+							this.setState({
+								dir: temp,
+								isLoaded: true,
+								files: result.files
+							});
+						},
+						(error) => {
+							this.setState({
+								dir: null,
+								isLoaded: true,
+								error
+							});
+						}
+					)
+			}
+		//} 
+		//else {
+			this.setState({back: false})
+		//}
+	}
 
-		}
+		
+	handleGoBack() {
+		console.log("_________here is go back is DisplayFiles")
+		var temp = this.state.dir.split('%5C')
+		temp.pop();
+		temp = temp.join('%5C')
+		
+		this.setState({
+			dir: temp,
+			back: true
+			}, function () {
+				//console.log('This is suppose to be last dir:', this.state.dir)
+				fetch('http://localhost:8080/path/getfiles/?dir=' + temp)
+				.then(response => response.json())
+				.then(
+				(result) => {
+					this.setState({
+						isLoaded: true,
+						files: result.files
+					});
+				},
+				(error) => {
+					this.setState({
+						dir: null,
+						isLoaded: true,
+						error
+					});
+				}
+			)
+			});
+	}
 
 	/**
 	* Update the DOM with the rendered component.
@@ -116,17 +206,22 @@ class DisplayFiles extends React.Component {
 				{id: 'center', className: 'center'},
 				React.createElement('h1', null, 'Please Enter a Valid Root Directory!')
 			)
-		} else if (typeof files !== 'undefined') {
+		}  else if (typeof files !== 'undefined') {
 			
 			return (
 				<div>
-				
+				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
 				<Container>
 				<br />
 					<Row>
 						{files.map(item => (
 							<Col md="auto" key={item.fullName}>
-								<FileIcon fullFileName={item.fullName} extension={item.extension} type={item.type} currentDir = {this.state.dir} />
+								<FileIcon 
+									fullFileName={item.fullName} 
+									extension={item.extension} 
+									type={item.type} 
+									currentDir = {this.state.dir} 
+									parentCallback = {this.callback}/>
 							</Col>
 						))}
 					</Row>

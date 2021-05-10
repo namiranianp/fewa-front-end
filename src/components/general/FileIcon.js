@@ -2,9 +2,10 @@ import React from 'react';
 import '../../css/FileIcon.css';
 
 import ContentDisplayBox from './ContentDisplayBox.js';
+import RightClickMenu from './RightClickMenu.js';
 
 import Card from 'react-bootstrap/Card';
-import DisplayFiles from './DisplayFiles.js'
+
 import TXTIcon from '../../Icons/TXTIcon.svg';
 import FolderIcon from '../../Icons/FolderIcon.svg';
 import MP4Icon from '../../Icons/MP4Icon.svg';
@@ -19,16 +20,21 @@ import JPEGIcon from '../../Icons/JPEGIcon.svg';
  * @name FileIcon
  */
 class FileIcon extends React.Component {
+	update = (current_dir, goback) => {
+		this.props.parentCallback(current_dir, goback)
+	}
+	
 	constructor(props) {
 		super(props);
+		
+		this.clickContextMenu = this.clickContextMenu.bind(this);
+		
 		this.state = {
 			dir: this.props.currentDir,
-			change_dir: null,
+			contextMenu: null,
 			iconImage: UnknownFileIcon,
 			fileContentsDisplay: null,
-			if_dir: false
 		};
-		this.childKey = 0;
 	}
 /**
 	
@@ -72,9 +78,8 @@ class FileIcon extends React.Component {
 	* @name displayContent
 	*/
 	displayContent() {
-		++this.childKey;
 		var temp = this.state.dir.toString();
-		console.log("before parse: ", temp)
+		// console.log("before parse: ", temp)
 		// temp.replaceAll(':', 'C%A')
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%5C');
@@ -116,15 +121,8 @@ class FileIcon extends React.Component {
 			});
 		}
 		else if ("directory".localeCompare(this.props.type) === 0) {
-			const dir = this.props.fullFileName
-			function update(state, props) {
-				return {...state, 
-					image: FolderIcon,
-					if_dir: true,
-					change_dir: this.props.fullFileName
-				}
-			}
-			this.setState(update);
+
+			this.update(this.props.currentDir + '%5C' + this.props.fullFileName, true)
 		}
 	}
 
@@ -138,33 +136,61 @@ class FileIcon extends React.Component {
 	}
 
 	/**
+	* This is a handler for disabling default context menus and creating custom right click functionality
+	* @function
+
+	* @name contextMenu
+	*/
+	clickContextMenu(e) {
+		e.preventDefault();
+		this.setState({
+			contextMenu: <RightClickMenu
+				disable={() => this.disableContextMenu()}
+				displayContent={() => this.displayContent()}
+				dir={this.state.dir + '%5C' + this.props.fullFileName}
+				XPos={e.screenX}
+				YPos={e.screenY}
+			/>
+		});
+
+	}
+
+	/**
+	* This is a handler for disabling the custom right click functionality
+	* @function
+	
+	* @name disableContextMenu
+	*/
+	disableContextMenu() {
+		this.setState({
+			contextMenu: null
+		});
+	}
+
+	/**
 	* Update the DOM with the rendered component.
 	* @function
 	* @name render
 	*/
 	render() {
 		
-		if (this.state.if_dir) {
-			return (
-				<div>
-					<DisplayFiles key={this.childKey} rootDir={this.state.dir} current_Dir={this.state.change_dir} changeDir={true}/>				
-				</div>
-			)
-		} 
-		else {
 			return (
 				<Card id="icon" border="light">
-					<Card.Img onClick={() => { this.displayContent() }} variant="top" height="20%" src={this.state.iconImage} />
+					<Card.Img 
+						onClick={() => { this.displayContent() }}
+						onContextMenu={this.clickContextMenu} 
+						variant="top" height="20%" 
+						src={this.state.iconImage} />
 					<Card.Body>
 						<Card.Title>{this.props.fullFileName}</Card.Title>
 					</Card.Body>
-	
+					
 					{this.state.fileContentsDisplay}
-	
+					{this.state.contextMenu}
 				</Card>
 	
-			);			
-		}
+			);
+		
 	}
 }
 
