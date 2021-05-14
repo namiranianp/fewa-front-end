@@ -1,0 +1,10 @@
+#stayOnTop{
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0%;
+	z-index: 69;
+}
+
+.center{
+	position: center;
+}

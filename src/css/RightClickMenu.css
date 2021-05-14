@@ -1,0 +1,4 @@
+#menuOverlay {
+	position: fixed;
+	z-index: 24;
+}
