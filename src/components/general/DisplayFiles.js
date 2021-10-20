@@ -67,17 +67,17 @@ class DisplayFiles extends React.Component {
 		//	this.replaceChar()
 		var temp = this.state.dir;
 		if (typeof this.props.changeDir !== 'undefined') {
-			temp += '%5C' + this.props.current_Dir
+			temp += '%2F' + this.props.current_Dir
 		}
 		temp = temp.toString();
 	 	temp = temp.split(':').join('%3A');
-		temp = temp.split('/').join('%5C');
+		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
 		
 		if (this.props.goback) {
 			temp = temp.split('%5C')
 			temp.pop();
-			temp = temp.join('5%C')
+			temp = temp.join('%5C')
 		}		
 		this.setState({dir: temp});
 		if (this.props.search) {
