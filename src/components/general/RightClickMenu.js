@@ -74,8 +74,8 @@ class RightClickMenu extends React.Component {
 
 					<Button variant="warning" onClick={() => {this.handleDeleteTag()}}>Delete Tags</Button>
 				</Form>
-				<Button variant="danger"onClick={() => {this.handleDelete()}}>Delete</Button>
-				<Button onClick={() => {this.handleDownload()}}>Download</Button>
+				<Button variant="danger" onClick={() => {this.handleDelete()}}>Delete</Button>
+				<Button variant="success" onClick={() => {this.handleDownload()}}>Download</Button>
 
 			</ButtonGroup>
 		);
