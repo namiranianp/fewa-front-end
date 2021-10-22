@@ -80,47 +80,47 @@ class FileIcon extends React.Component {
 	displayContent() {
 		var temp = this.state.dir.toString();
 	 	temp = temp.split(':').join('%3A');
-		temp = temp.split('/').join('%5C');
+		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
 		if ("txt".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/txt/?file=" + temp + '%5C' + this.props.fullFileName}
+					source={"http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("mp4".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/mp4/?file=" + temp + "%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/mp4/?file=" + temp + "%2F" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("pdf".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/pdf/?file=" + temp + "%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/pdf/?file=" + temp + "%2F" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/png/?file=" + temp + "%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/png/?file=" + temp + "%2F" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%5C" + this.props.fullFileName}
+					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%2F" + this.props.fullFileName}
 					disable={() => this.disableContentDiplay()}
 				/>
 			});
 		}
 		else if ("directory".localeCompare(this.props.type) === 0) {
 
-			this.update(this.props.currentDir + '%5C' + this.props.fullFileName, true)
+			this.update(this.props.currentDir + '%2F' + this.props.fullFileName, true)
 		}
 	}
 
@@ -145,7 +145,7 @@ class FileIcon extends React.Component {
 			contextMenu: <RightClickMenu
 				disable={() => this.disableContextMenu()}
 				displayContent={() => this.displayContent()}
-				dir={this.state.dir + '%5C' + this.props.fullFileName}
+				dir={this.state.dir + '%2F' + this.props.fullFileName}
 				XPos={e.screenX}
 				YPos={e.screenY}
 			/>
