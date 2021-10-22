@@ -41,7 +41,7 @@ class RightClickMenu extends React.Component {
 	}
 
 	handleDownload(){
-	    fetch("http://localhost:8080/tag/download/?filePath=" + this.props.dir)
+	    fetch("http://localhost:8080/download/?filePath=" + this.props.dir)
 	}
 	
 	loadTag = (event) => {
