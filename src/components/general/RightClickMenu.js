@@ -39,10 +39,6 @@ class RightClickMenu extends React.Component {
 	handleDeleteTag() {
 		fetch("http://localhost:8080/tag/remove/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
 	}
-
-	handleDownload(){
-	    fetch("http://localhost:8080/download/?filePath=" + this.props.dir)
-	}
 	
 	loadTag = (event) => {
 		this.setState({
@@ -75,9 +71,13 @@ class RightClickMenu extends React.Component {
 					<Button variant="warning" onClick={() => {this.handleDeleteTag()}}>Delete Tags</Button>
 				</Form>
 				<Button variant="danger" onClick={() => {this.handleDelete()}}>Delete</Button>
-				<Button variant="success" onClick={() => {this.handleDownload()}}>Download</Button>
+				<a href = {this.props.dir} download>
+					<Button variant="success">Download</Button>
+				</a>
 
 			</ButtonGroup>
+			
+			
 		);
 	}
 }
