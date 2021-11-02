@@ -28,7 +28,6 @@ class Upload extends React.Component {
         alert('File has successfully uploaded');
         })
         .catch(() => alert('File failed to upload'));
-        }
     }
 
 
