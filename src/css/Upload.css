@@ -1,4 +1,8 @@
-#half{
-	width: 35%;
-	margin: 2%;
+.container{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+span{
+    font-weight: bold;
 }

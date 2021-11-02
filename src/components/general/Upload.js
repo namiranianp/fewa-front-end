@@ -5,6 +5,9 @@ import '../../css/Upload.css';
 import FormControl from 'react-bootstrap/FormControl';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class Upload extends React.Component {
     constructor(props) {
@@ -42,16 +45,19 @@ class Upload extends React.Component {
 //            <ButtonGroup vertical id="menuOverlay"
 //                onMouseLeave={() => { this.props.disable() }}
 //                style={{ left: this.props.XPos - 20, top: this.props.YPos - 120 }}>
-
-            <ButtonGroup>
-                	<FormControl type="text" placeholder="Enter the file path on your device"
-                		value={this.state.value}
-                		onChange={(event) => {this.loadPath(event);this.handleSubmit(event);}}/>
-                	<FormControl type="text" placeholder="Enter the final location to place file"
-                        value={this.state.value}
-   						onChange={(event) => {this.loadFinal(event);this.handleSubmit(event);}}/>
-                	<Button variant="success" onClick={() => {this.handleUpload()}}>Upload</Button>
-            </ButtonGroup>
+            <div class="container">
+                <h1>Upload</h1>
+                <p>To upload a file, please enter the <span>file path</span> on your device and the <span>destination</span> to place the file in the database</p>
+                <ButtonGroup>
+                        <FormControl type="text" placeholder="File Path"
+                            value={this.state.value}
+                            onChange={(event) => {this.loadPath(event);this.handleSubmit(event);}}/>
+                        <FormControl type="text" placeholder="Destination"
+                            value={this.state.value}
+                            onChange={(event) => {this.loadFinal(event);this.handleSubmit(event);}}/>
+                        <Button variant="success" onClick={() => {this.handleUpload()}}>Upload</Button>
+                </ButtonGroup>
+            </div>
         )
     }
 }
