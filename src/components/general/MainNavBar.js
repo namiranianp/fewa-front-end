@@ -114,7 +114,7 @@ class MainNavBar extends React.Component {
     	* @name loadSaveSession
     	*/
     	loadUpload() {
-    		this.setState({ pageContents: <div /> });
+    		this.setState({ pageContents: <Upload /> });
     	}
 
 	/**

@@ -1,4 +1,6 @@
 import React from 'react';
+import '../../css/Upload.css';
+
 
 import FormControl from 'react-bootstrap/FormControl';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -7,6 +9,8 @@ import Button from 'react-bootstrap/Button';
 class Upload extends React.Component {
     constructor(props) {
     	super(props);
+    	this.state = {
+        };
     }
 
     handleSubmit = (event) => {
@@ -35,11 +39,11 @@ class Upload extends React.Component {
 
     render(){
         return(
-            <ButtonGroup vertical id="menuOverlay"
-                onMouseLeave={() => { this.props.disable() }}
-                style={{ left: this.props.XPos - 20, top: this.props.YPos - 120 }}>
+//            <ButtonGroup vertical id="menuOverlay"
+//                onMouseLeave={() => { this.props.disable() }}
+//                style={{ left: this.props.XPos - 20, top: this.props.YPos - 120 }}>
 
-                //<Form inline>
+            <ButtonGroup>
                 	<FormControl type="text" placeholder="Enter the file path on your device"
                 		value={this.state.value}
                 		onChange={(event) => {this.loadPath(event);this.handleSubmit(event);}}/>
@@ -47,8 +51,6 @@ class Upload extends React.Component {
                         value={this.state.value}
    						onChange={(event) => {this.loadFinal(event);this.handleSubmit(event);}}/>
                 	<Button variant="success" onClick={() => {this.handleUpload()}}>Upload</Button>
-                //</Form>
-
             </ButtonGroup>
         )
     }
