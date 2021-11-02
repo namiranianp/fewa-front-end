@@ -20,9 +20,15 @@ class Upload extends React.Component {
     	event.preventDefault();
     }
 
-//TODO:
     handleUpload(){
-
+        fetch("http://localhost:8080/upload/?filePath=" + this.props.dir)
+        .then(resp => resp.blob())
+        .then(blob => {
+            //TODO: and a whole bunch of other stuff
+        alert('File has successfully uploaded');
+        })
+        .catch(() => alert('File failed to upload'));
+        }
     }
 
 

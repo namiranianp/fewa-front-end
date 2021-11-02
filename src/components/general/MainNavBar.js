@@ -107,7 +107,6 @@ class MainNavBar extends React.Component {
 		this.setState({ pageContents: <Help /> });
 	}
 
-//TODO: load popup instead of load page
 	/**
     	* Load the page which uploads a file.
     	* @function
