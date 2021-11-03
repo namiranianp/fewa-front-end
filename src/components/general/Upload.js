@@ -21,10 +21,18 @@ class Upload extends React.Component {
     }
 
     handleUpload(){
-        fetch("http://localhost:8080/upload/?filePath=" + this.props.dir)
+        fetch("http://localhost:8080/upload/?filePath=" + this.props.filePath + "/?finalPath=" + this.props.finalPath)
         .then(resp => resp.blob())
         .then(blob => {
-            //TODO: and a whole bunch of other stuff
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // the filename you want
+            a.upload = this.finalPath;//get the file name
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
         alert('File has successfully uploaded');
         })
         .catch(() => alert('File failed to upload'));
