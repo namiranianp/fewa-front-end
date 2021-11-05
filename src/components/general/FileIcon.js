@@ -136,7 +136,6 @@ class FileIcon extends React.Component {
 	/**
 	* This is a handler for disabling default context menus and creating custom right click functionality
 	* @function
-
 	* @name contextMenu
 	*/
 	clickContextMenu(e) {
