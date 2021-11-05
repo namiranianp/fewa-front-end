@@ -128,7 +128,6 @@ class DisplayFiles extends React.Component {
 		}
 		this.setState({back: false})
 	}
-
 		
 	handleGoBack() {
 		console.log("_________here is go back is DisplayFiles")

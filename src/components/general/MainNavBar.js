@@ -4,6 +4,7 @@ import '../../css/MainNavBar.css';
 import DisplayFiles from './DisplayFiles.js';
 import LogIn from './LogIn.js';
 import Help from './Help.js';
+import Upload from './Upload.js';
 import Settings from './Settings.js';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -107,6 +108,15 @@ class MainNavBar extends React.Component {
 	}
 
 	/**
+    	* Load the page which uploads a file.
+    	* @function
+    	* @name loadSaveSession
+    	*/
+    	loadUpload() {
+    		this.setState({ pageContents: <Upload /> });
+    	}
+
+	/**
 	* Load the page which allows the user to toggle specific settings.
 	* @function
 	* @name loadSettings
@@ -139,6 +149,7 @@ class MainNavBar extends React.Component {
 						<NavDropdown.Item onClick={() => this.loadLogIn()}>Log-In / Sign Up</NavDropdown.Item>
 						<NavDropdown.Item onClick={() => this.loadSaveSession()}>Save Session</NavDropdown.Item>
 						<NavDropdown.Item onClick={() => this.loadHelp()}>Help</NavDropdown.Item>
+						<NavDropdown.Item onClick={() => this.loadUpload()}>Upload</NavDropdown.Item>
 						<NavDropdown.Divider />
 						<NavDropdown.Item onClick={() => this.loadSettings()}>Settings</NavDropdown.Item>
 					</NavDropdown>
