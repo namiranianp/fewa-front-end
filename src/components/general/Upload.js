@@ -90,10 +90,10 @@ class Upload extends React.Component {
             //     </ButtonGroup>
             // </div>
             <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
+                <div className="row justify-content-center">
+                    <div className="col-auto">
                             <div className="form-group files color">
-                                <label>Upload Your File </label>
+                                <label>Upload</label>
                                 <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
                             </div>
                     </div>

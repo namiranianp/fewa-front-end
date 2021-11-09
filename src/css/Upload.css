@@ -1,8 +1,8 @@
 .container{
+    margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
+    padding: 10px;
 }
 
-span{
-    font-weight: bold;
-}
+
