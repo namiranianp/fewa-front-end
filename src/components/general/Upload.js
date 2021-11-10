@@ -95,6 +95,7 @@ class Upload extends React.Component {
                             <div className="form-group files color">
                                 <label>Upload</label>
                                 <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
+                                //TODO: add button to submit upload
                             </div>
                     </div>
                 </div>
