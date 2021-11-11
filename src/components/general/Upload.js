@@ -1,14 +1,6 @@
 import React from 'react';
 import '../../css/Upload.css';
 
-
-import FormControl from 'react-bootstrap/FormControl';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
 class Upload extends React.Component {
     constructor(props) {
     	super(props);
@@ -45,7 +37,7 @@ class Upload extends React.Component {
         });
         const formData = new FormData();
         formData.append('file', this.state.selectedFile);
-        fetch('http://localhost:8080/upload', {
+        fetch('http://localhost:3000/upload', {
             method: 'post',
             body: formData
         }).then(res => {
@@ -55,7 +47,6 @@ class Upload extends React.Component {
             }
         });
     };
-
 
     //handles submission of location on device
     loadPath = (event) => {
