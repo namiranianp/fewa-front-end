@@ -22,6 +22,7 @@ const App = () => {
 		
         <div className="App">
 			<MainNavBar />
+			<SideMenu />
             <Toggle style={{
 				position: "aboslute",
 				top: 60,
