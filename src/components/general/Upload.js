@@ -9,6 +9,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import UploadIcon from '../../Icons/upload_icon.png'
+
 class Upload extends React.Component {
     constructor(props) {
     	super(props);
@@ -93,9 +95,11 @@ class Upload extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-auto">
                             <div className="form-group files color">
-                                <label>Upload</label>
-                                <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
-                                //TODO: add button to submit upload
+                                <h1>Upload</h1>
+                                <label>select or drag a file below</label>
+                                <br/>
+                                <img className="upload-icon" src={UploadIcon}/>
+                                <input type="file" placeholder="or Drag here" className="form-control" name="file" onChange={this.handleUpload}/>
                             </div>
                     </div>
                 </div>
