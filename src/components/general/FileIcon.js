@@ -14,6 +14,9 @@ import PNGIcon from '../../Icons/PNGIcon.svg';
 import UnknownFileIcon from '../../Icons/UnknownFileIcon.svg';
 import JPEGIcon from '../../Icons/JPEGIcon.svg';
 
+import MainNavBar from './MainNavBar.js';
+
+
 /**
  * An individual File Icon object, that represents a file from the backend.
  * @class
@@ -23,12 +26,12 @@ class FileIcon extends React.Component {
 	update = (current_dir, goback) => {
 		this.props.parentCallback(current_dir, goback)
 	}
-	
+
 	constructor(props) {
 		super(props);
-		
+		console.log("fileicon props: " + props.fullFileName)
 		this.clickContextMenu = this.clickContextMenu.bind(this);
-		
+
 		this.state = {
 			dir: this.props.currentDir,
 			contextMenu: null,
@@ -37,7 +40,7 @@ class FileIcon extends React.Component {
 		};
 	}
 /**
-	
+
  */
 	/**
 	* Is automatically called when this component successfully mounts.
@@ -80,56 +83,60 @@ class FileIcon extends React.Component {
 	displayContent() {
 		var temp = this.state.dir.toString();
 	 	temp = temp.split(':').join('%3A');
-		temp = temp.split('/').join('%5C');
+		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
+		// what's up with this fileContentsDisplay wrapper?
 		if ("txt".localeCompare(this.props.extension) === 0) {
-			this.setState({
-				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/txt/?file=" + temp + '%5C' + this.props.fullFileName}
-					disable={() => this.disableContentDiplay()}
-				/>
-			});
+		    console.log(this.props.navbar);
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName);
+//			this.setState({
+//				fileContentsDisplay: <ContentDisplayBox
+//					source={"http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName}
+//					disable={() => this.disableContentDisplay()}
+//				/>
+//			});
 		} else if ("mp4".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/mp4/?file=" + temp + "%5C" + this.props.fullFileName}
-					disable={() => this.disableContentDiplay()}
+					source={"http://localhost:8080/file/mp4/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
 				/>
 			});
 		} else if ("pdf".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/pdf/?file=" + temp + "%5C" + this.props.fullFileName}
-					disable={() => this.disableContentDiplay()}
+					source={"http://localhost:8080/file/pdf/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
 				/>
 			});
 		} else if ("png".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/png/?file=" + temp + "%5C" + this.props.fullFileName}
-					disable={() => this.disableContentDiplay()}
+					source={"http://localhost:8080/file/png/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
 				/>
 			});
 		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
 			this.setState({
 				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%5C" + this.props.fullFileName}
-					disable={() => this.disableContentDiplay()}
+					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
 				/>
 			});
 		}
 		else if ("directory".localeCompare(this.props.type) === 0) {
 
-			this.update(this.props.currentDir + '%5C' + this.props.fullFileName, true)
+			this.update(this.props.currentDir + '%2F' + this.props.fullFileName, true)
 		}
 	}
 
 	/**
 	* This is a handler for disabling the file content display box.
 	* @function
-	* @name disableContentDiplay
+	* @name disableContentDisplay
 	*/
-	disableContentDiplay() {
+	disableContentDisplay() {
 		this.setState({ fileContentsDisplay: null });
 	}
 
@@ -145,7 +152,7 @@ class FileIcon extends React.Component {
 			contextMenu: <RightClickMenu
 				disable={() => this.disableContextMenu()}
 				displayContent={() => this.displayContent()}
-				dir={this.state.dir + '%5C' + this.props.fullFileName}
+				dir={this.state.dir + '%2F' + this.props.fullFileName}
 				XPos={e.screenX}
 				YPos={e.screenY}
 			/>
@@ -156,7 +163,7 @@ class FileIcon extends React.Component {
 	/**
 	* This is a handler for disabling the custom right click functionality
 	* @function
-	
+
 	* @name disableContextMenu
 	*/
 	disableContextMenu() {
@@ -171,11 +178,13 @@ class FileIcon extends React.Component {
 	* @name render
 	*/
 	render() {
-		
 			return (
 				<Card id="icon" border="light">
-					<Card.Img 
-						onClick={() => { this.displayContent() }}
+					<Card.Img
+						onClick={() => {
+						    console.log("click from onclick render function bro");
+						    this.displayContent()
+						}}
 						onContextMenu={this.clickContextMenu} 
 						variant="top" height="20%" 
 						src={this.state.iconImage} />

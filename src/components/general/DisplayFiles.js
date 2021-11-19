@@ -17,7 +17,7 @@ import Col from 'react-bootstrap/Col';
 class DisplayFiles extends React.Component {
 	constructor(props) {
 		super(props);
-
+		console.log(this.props.navbar);
 		this.state = {
 			dir: this.props.rootDir,
 			curr_dir: '',
@@ -28,29 +28,31 @@ class DisplayFiles extends React.Component {
 		};
 
 	}
-	
+
 	callback = (current_dir, goback) => {
 		console.log("CALL BACK HERE")
 		fetch('http://localhost:8080/path/getfiles/?dir=' + current_dir)
 		.then(response => response.json())
 		.then(
-		(result) => {
-			this.setState({
-				dir: current_dir,
-				isLoaded: true,
-				files: result.files
-			});
-		},
-		(error) => {
-			this.setState({
-				dir: null,
-				isLoaded: true,
-				error
-			});
-		}
+            (result) => {
+                console.log("result.files: " + result.files)
+                this.setState({
+                    dir: current_dir,
+                    isLoaded: true,
+                    files: result.files
+                });
+            },
+            (error) => {
+                this.setState({
+                    dir: null,
+                    isLoaded: true,
+                    error
+                });
+            }
 		)
+
 	}
-	
+
 	/**
 	* Is automatically called when this component successfully mounts.
 	* In this case, it is used to fetch the file information from the backend. "http://localhost:8080/seed/?dir=C%3A%5CUsers%5CKevin%5CDocuments%5Ctest%5Ctest-1"
@@ -58,27 +60,27 @@ class DisplayFiles extends React.Component {
 	* @name componentDidMount
 	*/
 	componentDidMount() {
-		
+
 		if (typeof this.state.dir === 'undefined') {
 			console.log('UNDEFINED dir DETECTED')
-			return			
-		} 
+			return
+		}
 
 		//	this.replaceChar()
 		var temp = this.state.dir;
 		if (typeof this.props.changeDir !== 'undefined') {
-			temp += '%5C' + this.props.current_Dir
+			temp += '%2F' + this.props.current_Dir
 		}
 		temp = temp.toString();
 	 	temp = temp.split(':').join('%3A');
-		temp = temp.split('/').join('%5C');
+		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
-		
+
 		if (this.props.goback) {
 			temp = temp.split('%5C')
 			temp.pop();
-			temp = temp.join('5%C')
-		}		
+			temp = temp.join('%5C')
+		}
 		this.setState({dir: temp});
 		if (this.props.search) {
 			var url = 'http://localhost:8080/search/name/?file='
@@ -105,8 +107,8 @@ class DisplayFiles extends React.Component {
 			}
 		)
 		} else {
-			
-			console.log("=================DisplayFiles state DIR: ", this.state.dir);
+			console.log("DisplayFiles state DIR: ", this.state.dir);
+			console.log("rest call: " + 'http://localhost:8080/path/setseed/?dir=' + temp)
 			fetch('http://localhost:8080/path/setseed/?dir=' + temp)
 				.then(response => response.json())
 				.then(
@@ -129,22 +131,25 @@ class DisplayFiles extends React.Component {
 		this.setState({back: false})
 	}
 
-		
+
 	handleGoBack() {
 		console.log("_________here is go back is DisplayFiles")
-		var temp = this.state.dir.split('%5C')
+		var temp = this.state.dir.split('%2F')
+		console.log("TEMP PRE POP: " + temp)
 		temp.pop();
-		temp = temp.join('%5C')
-		
+		console.log("TEMP POST POP: " + temp)
+		temp = temp.join('%2F')
+
 		this.setState({
 			dir: temp,
 			back: true
 			}, function () {
-				//console.log('This is suppose to be last dir:', this.state.dir)
+				console.log("rest call: " + 'http://localhost:8080/path/getfiles/?dir=' + temp)
 				fetch('http://localhost:8080/path/getfiles/?dir=' + temp)
 				.then(response => response.json())
 				.then(
 				(result) => {
+					console.log("result.files: " + result.files)
 					this.setState({
 						isLoaded: true,
 						files: result.files
@@ -167,7 +172,6 @@ class DisplayFiles extends React.Component {
 	* @name render
 	*/
 	render() {
-
 		const {
 			dir,
 			error,
@@ -176,9 +180,9 @@ class DisplayFiles extends React.Component {
 		} = this.state;
 
 		if (error) {
-			
+
 			return (
-				
+
 				<div />
 			);
 
@@ -195,7 +199,7 @@ class DisplayFiles extends React.Component {
 				React.createElement('h1', null, 'Please Enter a Valid Root Directory!')
 			)
 		}  else if (typeof files !== 'undefined') {
-			
+			console.log("rendering here");
 			return (
 				<div>
 				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
@@ -204,12 +208,13 @@ class DisplayFiles extends React.Component {
 					<Row>
 						{files.map(item => (
 							<Col md="auto" key={item.fullName}>
-								<FileIcon 
-									fullFileName={item.fullName} 
-									extension={item.extension} 
-									type={item.type} 
-									currentDir = {this.state.dir} 
-									parentCallback = {this.callback}/>
+								<FileIcon
+									fullFileName={item.fullName}
+									extension={item.extension}
+									type={item.type}
+									currentDir = {this.state.dir}
+									parentCallback = {this.callback}
+									navbar = {this.props.navbar} />
 							</Col>
 						))}
 					</Row>
