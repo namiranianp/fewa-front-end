@@ -1,6 +1,16 @@
 import React from 'react';
 import '../../css/Upload.css';
 
+
+import FormControl from 'react-bootstrap/FormControl';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import UploadIcon from '../../Icons/upload_icon.png'
+
 class Upload extends React.Component {
     constructor(props) {
     	super(props);
@@ -29,6 +39,24 @@ class Upload extends React.Component {
     //     })
     //     .catch(() => alert('File failed to upload'));
     // }
+
+    handleUpload = (e) => {
+        e.preventDefault();
+        this.setState({
+            selectedFile: e.target.files[0]
+        });
+        const formData = new FormData();
+        formData.append('file', this.state.selectedFile);
+        fetch('http://localhost:8080/upload', {
+            method: 'post',
+            body: formData
+        }).then(res => {
+            if(res.ok) {
+                console.log(res.data);
+                alert("File uploaded successfully.")
+            }
+        });
+    };
 
     handleUpload = (e) => {
         e.preventDefault();
@@ -81,11 +109,14 @@ class Upload extends React.Component {
             //     </ButtonGroup>
             // </div>
             <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
+                <div className="row justify-content-center">
+                    <div className="col-auto">
                             <div className="form-group files color">
-                                <label>Upload Your File </label>
-                                <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
+                                <h1>Upload</h1>
+                                <label>select or drag a file below</label>
+                                <br/>
+                                <img className="upload-icon" src={UploadIcon}/>
+                                <input type="file" placeholder="or Drag here" className="form-control" name="file" onChange={this.handleUpload}/>
                             </div>
                     </div>
                 </div>
