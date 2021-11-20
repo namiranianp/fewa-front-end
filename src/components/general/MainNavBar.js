@@ -108,13 +108,13 @@ class MainNavBar extends React.Component {
 	}
 
 	/**
-    	* Load the page which uploads a file.
-    	* @function
-    	* @name loadSaveSession
-    	*/
-    	loadUpload() {
-    		this.setState({ pageContents: <Upload /> });
-    	}
+	* Load the page which uploads a file.
+	* @function
+	* @name loadSaveSession
+	*/
+	loadUpload() {
+		this.setState({ pageContents: <Upload /> });
+	}
 
 	/**
 	* Load the page which allows the user to toggle specific settings.
