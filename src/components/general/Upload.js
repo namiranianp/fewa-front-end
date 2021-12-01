@@ -9,6 +9,18 @@ class Upload extends React.Component {
     }
 
     handleUpload = (e) => {
+
+//TODO: code for multifile upload -- replace other code with this once backend is working
+//        const formData = new FormData();
+//        for(let i = 0; i< e.target.files.length; i++) {
+//             formData.append('file', e.target.files[i])
+//        }
+//        ApiService.upload(formData)
+//             .then(res => {
+//                console.log(res.data);
+//                alert("File uploaded successfully.")
+//             })
+
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
