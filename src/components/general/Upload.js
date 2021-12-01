@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../css/Upload.css';
 
+import UploadIcon from '../../Icons/upload_icon.png';
+
 class Upload extends React.Component {
     constructor(props) {
     	super(props);
@@ -39,9 +41,12 @@ class Upload extends React.Component {
         return(
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col">
                             <div className="form-group files color">
-                                <label>Upload Your File </label>
+                                <h1>Upload</h1>
+                                <label>select or drag a file below</label>
+                                <br/>
+                                <img src={UploadIcon} className="upload-icon"/>
                                 <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
                             </div>
                     </div>
