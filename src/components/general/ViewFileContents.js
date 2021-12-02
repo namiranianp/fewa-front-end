@@ -27,7 +27,7 @@ class ViewFileContents extends React.Component {
 	* @name componentDidMount
 	*/
 	componentDidMount() {
-        console.log("rest call: " + this.props.suggested)
+//        console.log("rest call: " + this.props.suggested)
         fetch(this.props.suggested)
             .then(response => response.json())
             .then(
@@ -42,7 +42,7 @@ class ViewFileContents extends React.Component {
                     });
                 }
             )
-        }
+    }
 
 
 	/**
@@ -57,8 +57,15 @@ class ViewFileContents extends React.Component {
 
 		return (
 			<div>
-				<Button variant="dark" onClick={() => console.log("click")}>Go Back</Button>
-				<h1>{this.props.filename} hello</h1>
+				<Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>Go Back</Button>
+				<Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>../</Button>
+
+				<h1> {this.props.filename} </h1>
+
+				<small> current directory: {this.props.path} </small>
+
+				<br />
+
 				<iframe title="File Content Viewer" src={this.props.source}></iframe>
 
                 <Container>
@@ -70,9 +77,11 @@ class ViewFileContents extends React.Component {
                                     fullFileName={item.fullName}
                                     extension={item.extension}
                                     type={item.type}
-                                    currentDir = {this.state.dir}
+                                    currentDir = {item.path.slice(0, item.path.length - item.fullName.length - 1)}
                                     parentCallback = {this.callback}
-                                    navbar = {this.props.navbar} />
+                                    navbar = {this.props.navbar}
+                                    suggestedRedirect = {true}
+                                    />
                             </Col>
                         ))}
                     </Row>

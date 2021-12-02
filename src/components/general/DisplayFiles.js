@@ -17,7 +17,7 @@ import Col from 'react-bootstrap/Col';
 class DisplayFiles extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props.navbar);
+//		console.log(this.props.navbar);
 		this.state = {
 			dir: this.props.rootDir,
 			curr_dir: '',
@@ -107,8 +107,8 @@ class DisplayFiles extends React.Component {
 			}
 		)
 		} else {
-			console.log("DisplayFiles state DIR: ", this.state.dir);
-			console.log("rest call: " + 'http://localhost:8080/path/setseed/?dir=' + temp)
+//			console.log("DisplayFiles state DIR: ", this.state.dir);
+//			console.log("rest call: " + 'http://localhost:8080/path/setseed/?dir=' + temp)
 			fetch('http://localhost:8080/path/setseed/?dir=' + temp)
 				.then(response => response.json())
 				.then(
@@ -199,7 +199,7 @@ class DisplayFiles extends React.Component {
 				React.createElement('h1', null, 'Please Enter a Valid Root Directory!')
 			)
 		}  else if (typeof files !== 'undefined') {
-			console.log("rendering here");
+//			console.log("rendering here");
 			return (
 				<div>
 				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
@@ -214,7 +214,9 @@ class DisplayFiles extends React.Component {
 									type={item.type}
 									currentDir = {this.state.dir}
 									parentCallback = {this.callback}
-									navbar = {this.props.navbar} />
+									navbar = {this.props.navbar}
+									suggestedRedirect = {false}
+									 />
 							</Col>
 						))}
 					</Row>

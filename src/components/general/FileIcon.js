@@ -29,7 +29,11 @@ class FileIcon extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log("fileicon props: " + props.fullFileName)
+//		console.log("fileicon props: " + props.fullFileName)
+//		console.log("redirect: " + this.props.suggestedRedirect)
+//		console.log("currentDir: " + this.props.currentDir)
+//		console.log("currentDirSLICED: " + this.props.currentDir.slice(0, this.props.currentDir.length - props.fullFileName.length))
+
 		this.clickContextMenu = this.clickContextMenu.bind(this);
 
 		this.state = {
@@ -87,9 +91,10 @@ class FileIcon extends React.Component {
 		temp = temp.split('\\').join('%5C');
 		// what's up with this fileContentsDisplay wrapper?
 		if ("txt".localeCompare(this.props.extension) === 0) {
-		    console.log(this.props.navbar);
+//		    console.log(this.props.navbar);
+//		    console.log("temp: " + temp);
 		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName,
-		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName);
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString());
 //			this.setState({
 //				fileContentsDisplay: <ContentDisplayBox
 //					source={"http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName}
@@ -182,7 +187,7 @@ class FileIcon extends React.Component {
 				<Card id="icon" border="light">
 					<Card.Img
 						onClick={() => {
-						    console.log("click from onclick render function bro");
+//						    console.log("click from onclick render function bro");
 						    this.displayContent()
 						}}
 						onContextMenu={this.clickContextMenu} 
@@ -195,9 +200,7 @@ class FileIcon extends React.Component {
 					{this.state.fileContentsDisplay}
 					{this.state.contextMenu}
 				</Card>
-	
 			);
-		
 	}
 }
 

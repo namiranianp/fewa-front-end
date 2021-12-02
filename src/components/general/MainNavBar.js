@@ -32,6 +32,8 @@ class MainNavBar extends React.Component {
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.childKey = 0;
+		this.viewKey = 0;
+	    this.viewedFiles = [];
 	}
 
 	loadDir = (event) => {
@@ -61,11 +63,11 @@ class MainNavBar extends React.Component {
 	loadSearchResult() {
 		this.setState({
 			pageContents: <DisplayFiles
-							byTag={this.state.checked}
-							query={this.state.query}
-							rootDir = {this.state.dir}
-							search={true}
-							/>
+                byTag={this.state.checked}
+                query={this.state.query}
+                rootDir = {this.state.dir}
+                search={true}
+                />
 		})
 	}
 
@@ -75,6 +77,7 @@ class MainNavBar extends React.Component {
 	* @name loadDisplayFiles
 	*/
 	loadDisplayFiles() {
+	    console.log("loadDisplayFiles: " + this.state.dir)
 		++this.childKey;
 		this.setState({
 			current_dir: this.state.dir,
@@ -121,13 +124,54 @@ class MainNavBar extends React.Component {
 		this.setState({ pageContents: <Settings /> });
 	}
 
+    navigateToDir(dir)
+    {
+        this.state.dir = dir
+        this.loadDisplayFiles()
+    }
+
+    /**
+    * Load the page which allows the user to toggle specific settings.
+    * @function
+    * @name loadSettings
+    */
+    loadBackViewFileContents() {
+
+        console.log("vf len: " + this.viewedFiles.length)
+
+        if (this.viewedFiles.length > 1)
+        {
+            this.viewedFiles.pop();
+
+            var fileContents = this.viewedFiles.pop();
+            this.loadViewFileContents(fileContents[0], fileContents[1], fileContents[2], fileContents[3])
+        } else
+        {
+            this.viewedFiles.pop();
+
+            this.loadDisplayFiles();
+        }
+    }
+
 	/**
 	* Load the page which allows the user to toggle specific settings.
 	* @function
 	* @name loadSettings
 	*/
-	loadViewFileContents(source, suggested, filename) {
-		this.setState({ pageContents: <ViewFileContents source = {source} suggested = {suggested} filename = {filename}/> });
+	loadViewFileContents(source, suggested, filename, dir) {
+	    console.log("source: " + source)
+//	    console.log("suggested: " + suggested)
+//	    console.log("filename: " + filename)
+
+        this.viewKey++
+        var fileContents = [source, suggested, filename, dir];
+        this.viewedFiles.push(fileContents)
+
+        dir = dir.split('%3A').join(':');
+        dir = dir.split('%2F').join('/');
+        dir = dir.split('%5C').join('\\');
+
+		this.setState({ pageContents: <ViewFileContents key = {this.viewKey} source = {source} suggested = {suggested} filename = {filename} navbar = {this} path = {dir} />});
 	}
 
 	/**
