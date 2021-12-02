@@ -25,7 +25,9 @@ class Upload extends React.Component {
 
         e.preventDefault();
         const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+        for(let i = 0; i< e.target.files.length; i++) {
+            formData.append('file', e.target.files[i])
+        }
         fetch('http://localhost:8080/upload', {
             method: 'post',
             body: formData
