@@ -49,7 +49,7 @@ class Upload extends React.Component {
                                 <label>select or drag a file below</label>
                                 <br/>
                                 <img src={UploadIcon} className="upload-icon"/>
-                                <input type="file" className="form-control" name="file" onChange={this.handleUpload}/>
+                                <input type="file" className="form-control" name="file" multiple onChange={this.handleUpload}/>
                             </div>
                     </div>
                 </div>
