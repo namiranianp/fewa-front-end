@@ -18,6 +18,11 @@ class RightClickMenu extends React.Component {
 	constructor(props) {
 		super(props);
 
+        this.navbar = this.props.navbar;
+
+        this.dir = this.props.dir;
+        this.filename = this.props.filename;
+
 		this.state = {
 			tag: ''
 		};
@@ -27,17 +32,34 @@ class RightClickMenu extends React.Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 	}
-	
+
+	handleDisplay() {
+		console.log("display tag: " + "http://localhost:8080/tag/display/?filePath=" + this.props.dir)
+		fetch("http://localhost:8080/tag/display/?filePath=" + this.props.dir)
+	}
+
 	handleAdd() {
+		console.log("add tag: " + "http://localhost:8080/tag/add/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
 		fetch("http://localhost:8080/tag/add/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
 	}
 	
-	handleDelete() {
-		fetch("http://localhost:8080/delete/?filePath=" + this.props.dir)
+	handleHide() {
+		console.log("hide: " + "http://localhost:8080/delete/hide/?filePath=" + this.props.dir)
+		fetch("http://localhost:8080/delete/hide/?filePath=" + this.props.dir)
 	}
+
+    handleDeleteFile() {
+        console.log("delete: " + "http://localhost:8080/delete/delete/?filePath=" + this.props.dir)
+        fetch("http://localhost:8080/delete/delete/?filePath=" + this.props.dir)
+    }
 	
 	handleDeleteTag() {
-		fetch("http://localhost:8080/tag/remove/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
+	    console.log("delete tag: " + "http://localhost:8080/tag/hide/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
+		fetch("http://localhost:8080/tag/hide/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
+	}
+
+	redirectManageTags() {
+	    this.navbar.loadTagManagement(this.dir, this.filename)
 	}
 	
 	loadTag = (event) => {
@@ -45,7 +67,7 @@ class RightClickMenu extends React.Component {
 			tag: event.target.value
 		})
 	}
-	
+
 
 	/**
 	* Update the DOM with the rendered component.
@@ -63,14 +85,15 @@ class RightClickMenu extends React.Component {
 				
 				<Button onClick={() => { this.props.displayContent() }} variant="primary">Open File</Button>
 				<Form inline>
-					<FormControl type="text" placeholder="Enter your tag name here~" 
+					<FormControl type="text" placeholder="Enter tag name"
 							value={this.state.value} 
 							onChange={(event) => {this.loadTag(event);this.handleSubmit(event);}}/>
 					<Button variant="success" onClick={() => {this.handleAdd()}}>Add Tags</Button>
-
 					<Button variant="warning" onClick={() => {this.handleDeleteTag()}}>Delete Tags</Button>
 				</Form>
-				<Button variant="danger"onClick={() => {this.handleDelete()}}>Delete</Button>
+				<Button variant="dark"onClick={() => {this.redirectManageTags()}}>Manage Tags</Button>
+				<Button variant="secondary"onClick={() => {this.handleHide()}}>Hide File</Button>
+				<Button variant="danger"onClick={() => {this.handleDeleteFile()}}>Delete File</Button>
 
 			</ButtonGroup>
 		);

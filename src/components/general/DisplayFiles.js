@@ -107,8 +107,6 @@ class DisplayFiles extends React.Component {
 			}
 		)
 		} else {
-//			console.log("DisplayFiles state DIR: ", this.state.dir);
-//			console.log("rest call: " + 'http://localhost:8080/path/setseed/?dir=' + temp)
 			fetch('http://localhost:8080/path/setseed/?dir=' + temp)
 				.then(response => response.json())
 				.then(
@@ -133,6 +131,8 @@ class DisplayFiles extends React.Component {
 
 
 	handleGoBack() {
+	    this.props.navbar.trackDirNavigationBack();
+
 		console.log("_________here is go back is DisplayFiles")
 		var temp = this.state.dir.split('%2F')
 		console.log("TEMP PRE POP: " + temp)
@@ -199,7 +199,6 @@ class DisplayFiles extends React.Component {
 				React.createElement('h1', null, 'Please Enter a Valid Root Directory!')
 			)
 		}  else if (typeof files !== 'undefined') {
-//			console.log("rendering here");
 			return (
 				<div>
 				<Button variant="dark" onClick={() => this.handleGoBack()}>Go Back</Button>
@@ -216,7 +215,7 @@ class DisplayFiles extends React.Component {
 									parentCallback = {this.callback}
 									navbar = {this.props.navbar}
 									suggestedRedirect = {false}
-									 />
+									/>
 							</Col>
 						))}
 					</Row>

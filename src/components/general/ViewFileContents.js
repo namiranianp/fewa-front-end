@@ -27,7 +27,7 @@ class ViewFileContents extends React.Component {
 	* @name componentDidMount
 	*/
 	componentDidMount() {
-//        console.log("rest call: " + this.props.suggested)
+        console.log("rest call: " + this.props.suggested)
         fetch(this.props.suggested)
             .then(response => response.json())
             .then(
@@ -35,6 +35,7 @@ class ViewFileContents extends React.Component {
                     this.setState({
                         files: result.files
                     });
+                    console.log("files: "  + this.state.files)
                 },
                 (error) => {
                     this.setState({
@@ -58,11 +59,10 @@ class ViewFileContents extends React.Component {
 		return (
 			<div>
 				<Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>Go Back</Button>
-				<Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>../</Button>
 
 				<h1> {this.props.filename} </h1>
 
-				<small> current directory: {this.props.path} </small>
+				<small>{this.props.path}/{this.props.filename}</small>
 
 				<br />
 

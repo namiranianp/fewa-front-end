@@ -24,6 +24,7 @@ import MainNavBar from './MainNavBar.js';
  */
 class FileIcon extends React.Component {
 	update = (current_dir, goback) => {
+        this.props.navbar.trackDirNavigation(current_dir)
 		this.props.parentCallback(current_dir, goback)
 	}
 
@@ -34,6 +35,7 @@ class FileIcon extends React.Component {
 //		console.log("currentDir: " + this.props.currentDir)
 //		console.log("currentDirSLICED: " + this.props.currentDir.slice(0, this.props.currentDir.length - props.fullFileName.length))
 
+        this.navbar = this.props.navbar;
 		this.clickContextMenu = this.clickContextMenu.bind(this);
 
 		this.state = {
@@ -89,7 +91,6 @@ class FileIcon extends React.Component {
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
-		// what's up with this fileContentsDisplay wrapper?
 		if ("txt".localeCompare(this.props.extension) === 0) {
 //		    console.log(this.props.navbar);
 //		    console.log("temp: " + temp);
@@ -158,6 +159,8 @@ class FileIcon extends React.Component {
 				disable={() => this.disableContextMenu()}
 				displayContent={() => this.displayContent()}
 				dir={this.state.dir + '%2F' + this.props.fullFileName}
+				filename={this.props.fullFileName}
+				navbar={this.props.navbar}
 				XPos={e.screenX}
 				YPos={e.screenY}
 			/>

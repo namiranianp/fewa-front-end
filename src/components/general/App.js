@@ -23,7 +23,7 @@ const App = () => {
         <div className="App">
 			<MainNavBar />
             <Toggle style={{
-				position: "aboslute",
+				position: "absolute",
 				top: 60,
 				right: 10}} theme={theme} toggleTheme={themeToggler} /> 
 		</div>

@@ -6,6 +6,7 @@ import LogIn from './LogIn.js';
 import Help from './Help.js';
 import Settings from './Settings.js';
 import ViewFileContents from './ViewFileContents.js';
+import TagManagement from './TagManagement.js';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -37,6 +38,7 @@ class MainNavBar extends React.Component {
 	}
 
 	loadDir = (event) => {
+	    console.log("LOADDIR  " + event.target.value)
 		this.setState({
 			dir : event.target.value
 		});
@@ -144,12 +146,31 @@ class MainNavBar extends React.Component {
             this.viewedFiles.pop();
 
             var fileContents = this.viewedFiles.pop();
-            this.loadViewFileContents(fileContents[0], fileContents[1], fileContents[2], fileContents[3])
+
+            if (fileContents.length > 1)
+            {
+                this.loadViewFileContents(fileContents[0], fileContents[1], fileContents[2], fileContents[3])
+            } else {
+                this.navigateToDir(fileContents[0])
+            }
         } else
         {
             this.viewedFiles.pop();
-
             this.loadDisplayFiles();
+        }
+    }
+
+    trackDirNavigation(dir)
+    {
+        var fileContents = [dir];
+        this.viewedFiles.push(fileContents)
+    }
+
+    trackDirNavigationBack()
+    {
+        if (this.viewedFiles.length != 0)
+        {
+            this.viewedFiles.pop()
         }
     }
 
@@ -174,6 +195,19 @@ class MainNavBar extends React.Component {
 		this.setState({ pageContents: <ViewFileContents key = {this.viewKey} source = {source} suggested = {suggested} filename = {filename} navbar = {this} path = {dir} />});
 	}
 
+
+		/**
+    	* Load the page which allows the user to toggle specific settings.
+    	* @function
+    	* @name loadSettings
+    	*/
+    	loadTagManagement(dir, filename) {
+    	    console.log("dir: " + dir + " filename: " + filename)
+            this.viewKey++
+    		this.setState({ pageContents: <TagManagement key = {this.viewKey} dir = {dir} navbar = {this} filename = {filename}/>});
+    	}
+
+
 	/**
 	* Update the DOM with the rendered component.
 	*
@@ -181,6 +215,7 @@ class MainNavBar extends React.Component {
 	* @name render
 	*/
 	render() {
+		console.log(this.viewedFiles.length + " viewedFiles.length")
 		return (
 			<div>
 				<Navbar id="stayOnTop" bg="dark" variant="dark">
