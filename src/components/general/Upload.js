@@ -22,7 +22,10 @@ class Upload extends React.Component {
             }).then(res => {
                 if(res.ok) {
                     console.log(res.data);
-                    alert("File uploaded successfully.");
+                    j += 1;
+                    if(j == e.target.files.length){
+                        alert("File uploaded successfully.");
+                    }
                 }
             });
         }
