@@ -81,7 +81,9 @@ class DisplayFiles extends React.Component {
 		}		
 		this.setState({dir: temp});
 		if (this.props.search) {
+
 			var url = 'http://localhost:8080/search/name/?file='
+
 			if (this.props.byTag) {
 				url = 'http://localhost:8080/search/tag/?tag='
 			}
@@ -107,7 +109,12 @@ class DisplayFiles extends React.Component {
 		} else {
 			
 			console.log("=================DisplayFiles state DIR: ", this.state.dir);
-			fetch('http://localhost:8080/path/setseed/?dir=' + temp)
+			if (this.state.dir == "files/database") {
+				var seed = 'http://localhost:8080/path/database/?dir=';
+			} else {
+				var seed = 'http://localhost:8080/path/setseed/?dir=';
+			}
+			fetch(seed + temp)
 				.then(response => response.json())
 				.then(
 					(result) => {
