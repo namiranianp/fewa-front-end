@@ -85,6 +85,8 @@ class FileIcon extends React.Component {
 			this.setState({ iconImage: M4AIcon });
 		} else if ("mp3".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: MP3Icon });
+		} else if ("wav".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({ iconImage: WAVIcon });
 		} else if ("jpeg".localeCompare(this.props.extension.toLowerCase()) === 0 || "jpg".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: JPEGIcon });
 		} else if ("directory".localeCompare(this.props.type.toLowerCase()) === 0) {
