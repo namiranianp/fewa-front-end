@@ -95,6 +95,58 @@ class FileIcon extends React.Component {
 
 	}
 
+
+	/**
+	* Attempts to display the file content based on the extension.
+	* @function
+	* @name displayContent
+	*/
+	displayPopUpContent() {
+		var temp = this.state.dir.toString();
+	 	temp = temp.split(':').join('%3A');
+		temp = temp.split('/').join('%2F');
+		temp = temp.split('\\').join('%5C');
+		if ("txt".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({
+				fileContentsDisplay: <ContentDisplayBox
+					source={"http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
+				/>
+			});
+		} else if ("mp4".localeCompare(this.props.extension.toLowerCase()) === 0 || "webm".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({
+				fileContentsDisplay: <ContentDisplayBox
+					source={"http://localhost:8080/file/mp4/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
+				/>
+			});
+		} else if ("pdf".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({
+				fileContentsDisplay: <ContentDisplayBox
+					source={"http://localhost:8080/file/pdf/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
+				/>
+			});
+		} else if ("png".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({
+				fileContentsDisplay: <ContentDisplayBox
+					source={"http://localhost:8080/file/png/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
+				/>
+			});
+		} else if ("jpeg".localeCompare(this.props.extension.toLowerCase()) === 0 || "jpg".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({
+				fileContentsDisplay: <ContentDisplayBox
+					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%2F" + this.props.fullFileName}
+					disable={() => this.disableContentDisplay()}
+				/>
+			});
+		}
+		else if ("directory".localeCompare(this.props.type) === 0) {
+			this.update(this.props.currentDir + '%2F' + this.props.fullFileName, true)
+		}
+	}
+
 	/**
 	* Attempts to display the file content based on the extension.
 	* @function
@@ -181,6 +233,7 @@ class FileIcon extends React.Component {
 			contextMenu: <RightClickMenu
 				disable={() => this.disableContextMenu()}
 				displayContent={() => this.displayContent()}
+				displayPopUpContent={() => this.displayPopUpContent()}
 				dir={this.state.dir + '%2F' + this.props.fullFileName}
 				filename={this.props.fullFileName}
 				navbar={this.props.navbar}

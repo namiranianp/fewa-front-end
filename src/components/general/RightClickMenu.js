@@ -61,6 +61,10 @@ class RightClickMenu extends React.Component {
 	redirectManageTags() {
 	    this.navbar.loadTagManagement(this.dir, this.filename)
 	}
+
+    redirectManageTags() {
+        this.navbar.loadTagManagement(this.dir, this.filename)
+    }
 	
 	loadTag = (event) => {
 		this.setState({
@@ -84,6 +88,7 @@ class RightClickMenu extends React.Component {
 				style={{ left: this.props.XPos - 20, top: this.props.YPos - 120 }}>
 				
 				<Button onClick={() => { this.props.displayContent() }} variant="primary">Open File</Button>
+				<Button variant="secondary"onClick={() => {this.props.displayPopUpContent()}}>Pop Up File</Button>
 				<Form inline>
 					<FormControl type="text" placeholder="Enter tag name"
 							value={this.state.value} 
