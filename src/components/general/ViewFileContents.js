@@ -16,6 +16,8 @@ import FileIcon from './FileIcon.js';
 class ViewFileContents extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(this.props.extension + " extension")
+		this.extension = this.props.extension;
 		this.state = {
             files: []
 		};
@@ -56,38 +58,82 @@ class ViewFileContents extends React.Component {
             files
         } = this.state;
 
-		return (
-			<div>
-				<Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>Go Back</Button>
+        console.log(this.extension +  " ooooh fuck")
 
-				<h1> {this.props.filename} </h1>
+        if (this.extension.toLowerCase() != "mp3" && this.extension.toLowerCase() != "m4a" && this.extension.toLowerCase() != "wav")
+        {
+            return (
+                <div>
+                    <Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>Go Back</Button>
 
-				<small>{this.props.path}/{this.props.filename}</small>
+                    <h1> {this.props.filename} </h1>
 
-				<br />
+                    <small>{this.props.path}/{this.props.filename}</small>
 
-				<iframe title="File Content Viewer" src={this.props.source}></iframe>
+                    <br />
 
-                <Container>
-                <br />
-                    <Row>
-                        {files.map(item => (
-                            <Col md="auto" key={item.fullName}>
-                                <FileIcon
-                                    fullFileName={item.fullName}
-                                    extension={item.extension}
-                                    type={item.type}
-                                    currentDir = {item.path.slice(0, item.path.length - item.fullName.length - 1)}
-                                    parentCallback = {this.callback}
-                                    navbar = {this.props.navbar}
-                                    suggestedRedirect = {true}
-                                    />
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-			</div>
-		);
+                    <iframe title="File Content Viewer" src={this.props.source}></iframe>
+
+                    <h4> You may also be interested in... </h4>
+
+                    <Container>
+                    <br />
+                        <Row>
+                            {files.sort().map(item => (
+                                <Col md="auto" key={item.fullName}>
+                                    <FileIcon
+                                        fullFileName={item.fullName}
+                                        extension={item.extension}
+                                        type={item.type}
+                                        currentDir = {item.path.slice(0, item.path.length - item.fullName.length - 1)}
+                                        parentCallback = {this.callback}
+                                        navbar = {this.props.navbar}
+                                        suggestedRedirect = {true}
+                                        />
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
+                </div>
+            );
+		} else {
+            return (
+                <div>
+                    <Button variant="dark" onClick={() => this.props.navbar.loadBackViewFileContents()}>Go Back</Button>
+
+                    <h1> {this.props.filename} </h1>
+
+                    <small>{this.props.path}/{this.props.filename}</small>
+
+                    <br />
+
+                    <audio controls>
+                        <source src={this.props.source}/>
+                    </audio>
+
+                    <h4> You may also be interested in... </h4>
+
+                    <Container>
+                    <br />
+                        <Row>
+                            {files.sort().map(item => (
+                                <Col md="auto" key={item.fullName}>
+                                    <FileIcon
+                                        fullFileName={item.fullName}
+                                        extension={item.extension}
+                                        type={item.type}
+                                        currentDir = {item.path.slice(0, item.path.length - item.fullName.length - 1)}
+                                        parentCallback = {this.callback}
+                                        navbar = {this.props.navbar}
+                                        suggestedRedirect = {true}
+                                        />
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
+                </div>
+            );
+		}
 	}
 }
 

@@ -28,9 +28,30 @@ class TagManagement extends React.Component {
         this.filename = this.props.filename;
 
 		this.state = {
-            tags: []
+		    tag: '',
+            tags: [],
 		};
 	}
+
+
+	refresh() {
+	console.log('fetching ' + "http://localhost:8080/tag/display/?filePath=" + this.dir)
+        fetch("http://localhost:8080/tag/display/?filePath=" + this.dir)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        tags: result.tags
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        error
+                    });
+                }
+            )
+    }
+
 
 	/**
 	* Is automatically called when this component successfully mounts.
@@ -55,6 +76,25 @@ class TagManagement extends React.Component {
             )
     }
 
+	handleSubmit = (event) => {
+		event.preventDefault();
+	}
+
+	loadTag = (event) => {
+		this.setState({
+			tag: event.target.value
+		})
+	}
+
+    handleAdd() {
+        console.log("add tag: " + "http://localhost:8080/tag/add/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
+        fetch("http://localhost:8080/tag/add/?tagName=" + this.state.tag + '&filePath=' + this.props.dir)
+    }
+
+	handleDeleteTag(tag) {
+	    console.log("delete tag: " + "http://localhost:8080/tag/remove/?tagName=" + tag + '&filePath=' + this.props.dir)
+		fetch("http://localhost:8080/tag/remove/?tagName=" + tag + '&filePath=' + this.props.dir)
+	}
 
 	/**
 	* Update the DOM with the rendered component.
@@ -73,21 +113,21 @@ class TagManagement extends React.Component {
 				<h1> Tag Management </h1>
 				<h3> {this.filename} </h3>
 
-            <div class="center">
-				<Form inline>
-					<FormControl type="text" placeholder="add new tag"
-							value={this.state.value}
-							onChange={(event) => {console.log("shee")}}/>
-					<Button variant="success" onClick={() => {console.log("add")}}>Add Tags</Button>
-				</Form>
-            </div>
+                <div class="center">
+                    <Form inline>
+                        <FormControl type="text" placeholder="add new tag"
+                                value={this.state.value}
+                                onChange={(event) => {this.loadTag(event);this.handleSubmit(event);}}/>
+                        <Button variant="success" onClick={() => {this.handleAdd();this.refresh();}}>Add Tags</Button>
+                    </Form>
+                </div>
 
                 <Container>
                 <br />
-                    {tags.map(item => (
+                    {tags.sort().map(item => (
                         <Row md="auto">
                             <Col key={item}>{item}</Col>
-                            <Col><Button onClick={() => { console.log("fuck") }} variant="danger">Remove Tag</Button></Col>
+                            <Col><Button onClick={() => { this.handleDeleteTag(item); this.refresh(); }} variant="danger">Remove Tag</Button></Col>
                         </Row>
                     ))}
                 </Container>

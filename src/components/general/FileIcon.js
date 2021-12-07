@@ -65,17 +65,17 @@ class FileIcon extends React.Component {
 	*/
 	assignIcon() {
 
-		if ("txt".localeCompare(this.props.extension) === 0) {
+		if ("txt".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: TXTIcon });
-		} else if ("mp4".localeCompare(this.props.extension) === 0) {
+		} else if ("mp4".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: MP4Icon });
-		} else if ("pdf".localeCompare(this.props.extension) === 0) {
+		} else if ("pdf".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: PDFIcon });
-		} else if ("png".localeCompare(this.props.extension) === 0) {
+		} else if ("png".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: PNGIcon });
-		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
+		} else if ("jpeg".localeCompare(this.props.extension.toLowerCase()) === 0 || "jpg".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: JPEGIcon });
-		} else if ("directory".localeCompare(this.props.type) === 0) {
+		} else if ("directory".localeCompare(this.props.type.toLowerCase()) === 0) {
 			this.setState({ iconImage: FolderIcon });
 		}
 
@@ -91,48 +91,57 @@ class FileIcon extends React.Component {
 	 	temp = temp.split(':').join('%3A');
 		temp = temp.split('/').join('%2F');
 		temp = temp.split('\\').join('%5C');
-		if ("txt".localeCompare(this.props.extension) === 0) {
-//		    console.log(this.props.navbar);
-//		    console.log("temp: " + temp);
+		if ("txt".localeCompare(this.props.extension.toLowerCase()) === 0) {
 		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName,
-		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString());
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
 //			this.setState({
 //				fileContentsDisplay: <ContentDisplayBox
 //					source={"http://localhost:8080/file/txt/?file=" + temp + '%2F' + this.props.fullFileName}
 //					disable={() => this.disableContentDisplay()}
 //				/>
 //			});
-		} else if ("mp4".localeCompare(this.props.extension) === 0) {
-			this.setState({
-				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/mp4/?file=" + temp + "%2F" + this.props.fullFileName}
-					disable={() => this.disableContentDisplay()}
-				/>
-			});
-		} else if ("pdf".localeCompare(this.props.extension) === 0) {
-			this.setState({
-				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/pdf/?file=" + temp + "%2F" + this.props.fullFileName}
-					disable={() => this.disableContentDisplay()}
-				/>
-			});
-		} else if ("png".localeCompare(this.props.extension) === 0) {
-			this.setState({
-				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/png/?file=" + temp + "%2F" + this.props.fullFileName}
-					disable={() => this.disableContentDisplay()}
-				/>
-			});
-		} else if ("jpeg".localeCompare(this.props.extension) === 0 || "jpg".localeCompare(this.props.extension) === 0) {
-			this.setState({
-				fileContentsDisplay: <ContentDisplayBox
-					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%2F" + this.props.fullFileName}
-					disable={() => this.disableContentDisplay()}
-				/>
-			});
-		}
+		} else if ("mp4".localeCompare(this.props.extension.toLowerCase()) === 0 || "webm".localeCompare(this.props.extension.toLowerCase()) === 0) {
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/mp4/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
+//			this.setState({
+//				fileContentsDisplay: <ContentDisplayBox
+//					source={"http://localhost:8080/file/mp4/?file=" + temp + "%2F" + this.props.fullFileName}
+//					disable={() => this.disableContentDisplay()}
+//				/>
+//			});
+		} else if ("pdf".localeCompare(this.props.extension.toLowerCase()) === 0) {
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/pdf/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
+//			this.setState({
+//				fileContentsDisplay: <ContentDisplayBox
+//					source={"http://localhost:8080/file/pdf/?file=" + temp + "%2F" + this.props.fullFileName}
+//					disable={() => this.disableContentDisplay()}
+//				/>
+//			});
+		} else if ("png".localeCompare(this.props.extension.toLowerCase()) === 0) {
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/png/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
+//			this.setState({
+//				fileContentsDisplay: <ContentDisplayBox
+//					source={"http://localhost:8080/file/png/?file=" + temp + "%2F" + this.props.fullFileName}
+//					disable={() => this.disableContentDisplay()}
+//				/>
+//			});
+		} else if ("jpeg".localeCompare(this.props.extension.toLowerCase()) === 0 || "jpg".localeCompare(this.props.extension.toLowerCase()) === 0) {
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/jpeg/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
+//			this.setState({
+//				fileContentsDisplay: <ContentDisplayBox
+//					source={"http://localhost:8080/file/jpeg/?file=" + temp + "%2F" + this.props.fullFileName}
+//					disable={() => this.disableContentDisplay()}
+//				/>
+//			});
+		} else if ("mp3".localeCompare(this.props.extension.toLowerCase()) === 0 || "m4a".localeCompare(this.props.extension.toLowerCase()) === 0 || "wav".localeCompare(this.props.extension.toLowerCase()) === 0) {
+		    console.log("happening")
+		    this.props.navbar.loadViewFileContents("http://localhost:8080/file/mp3/?file=" + temp + '%2F' + this.props.fullFileName,
+		    "http://localhost:8080/tag/suggest/?filePath=" + temp + '%2F' + this.props.fullFileName, this.props.fullFileName, this.state.dir.toString(), this.props.extension);
+        }
 		else if ("directory".localeCompare(this.props.type) === 0) {
-
 			this.update(this.props.currentDir + '%2F' + this.props.fullFileName, true)
 		}
 	}

@@ -149,7 +149,7 @@ class MainNavBar extends React.Component {
 
             if (fileContents.length > 1)
             {
-                this.loadViewFileContents(fileContents[0], fileContents[1], fileContents[2], fileContents[3])
+                this.loadViewFileContents(fileContents[0], fileContents[1], fileContents[2], fileContents[3], fileContents[4])
             } else {
                 this.navigateToDir(fileContents[0])
             }
@@ -179,20 +179,20 @@ class MainNavBar extends React.Component {
 	* @function
 	* @name loadSettings
 	*/
-	loadViewFileContents(source, suggested, filename, dir) {
+	loadViewFileContents(source, suggested, filename, dir, extension) {
 	    console.log("source: " + source)
 //	    console.log("suggested: " + suggested)
 //	    console.log("filename: " + filename)
 
         this.viewKey++
-        var fileContents = [source, suggested, filename, dir];
+        var fileContents = [source, suggested, filename, dir, extension];
         this.viewedFiles.push(fileContents)
 
         dir = dir.split('%3A').join(':');
         dir = dir.split('%2F').join('/');
         dir = dir.split('%5C').join('\\');
 
-		this.setState({ pageContents: <ViewFileContents key = {this.viewKey} source = {source} suggested = {suggested} filename = {filename} navbar = {this} path = {dir} />});
+		this.setState({ pageContents: <ViewFileContents key = {this.viewKey} source = {source} suggested = {suggested} filename = {filename} navbar = {this} path = {dir} extension = {extension}/>});
 	}
 
 

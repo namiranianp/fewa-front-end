@@ -205,7 +205,7 @@ class DisplayFiles extends React.Component {
 				<Container>
 				<br />
 					<Row>
-						{files.map(item => (
+						{files.sort().map(item => (
 							<Col md="auto" key={item.fullName}>
 								<FileIcon
 									fullFileName={item.fullName}
