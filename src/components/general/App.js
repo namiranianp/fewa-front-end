@@ -9,6 +9,7 @@ import  {useDarkMode} from "./useDarkMode";
 import { GlobalStyles } from "./Globalstyles";
 import { lightTheme, darkTheme } from "./Themes";
 import Toggle from "./Toggler";
+import ColorComponent from './ColorComponent'
 
 const App = () => {
   const [theme, themeToggler, mountedComponent] = useDarkMode();
@@ -21,6 +22,7 @@ const App = () => {
       <GlobalStyles/>
 		
         <div className="App">
+            <ColorComponent/>
 			<MainNavBar />
             <Toggle style={{
 				position: "aboslute",
