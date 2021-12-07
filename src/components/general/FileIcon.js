@@ -11,6 +11,10 @@ import FolderIcon from '../../Icons/FolderIcon.svg';
 import MP4Icon from '../../Icons/MP4Icon.svg';
 import PDFIcon from '../../Icons/PDFIcon.svg';
 import PNGIcon from '../../Icons/PNGIcon.svg';
+import M4AIcon from '../../Icons/M4AIcon.svg';
+import MP3Icon from '../../Icons/MP3Icon.svg';
+import WEBMIcon from '../../Icons/WEBMIcon.svg';
+import WAVIcon from '../../Icons/WAVIcon.svg';
 import UnknownFileIcon from '../../Icons/UnknownFileIcon.svg';
 import JPEGIcon from '../../Icons/JPEGIcon.svg';
 
@@ -73,6 +77,14 @@ class FileIcon extends React.Component {
 			this.setState({ iconImage: PDFIcon });
 		} else if ("png".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: PNGIcon });
+		} else if ("webm".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({ iconImage: WEBMIcon });
+		} else if ("mp3".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({ iconImage: MP3Icon });
+		} else if ("m4a".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({ iconImage: M4AIcon });
+		} else if ("mp3".localeCompare(this.props.extension.toLowerCase()) === 0) {
+			this.setState({ iconImage: MP3Icon });
 		} else if ("jpeg".localeCompare(this.props.extension.toLowerCase()) === 0 || "jpg".localeCompare(this.props.extension.toLowerCase()) === 0) {
 			this.setState({ iconImage: JPEGIcon });
 		} else if ("directory".localeCompare(this.props.type.toLowerCase()) === 0) {
